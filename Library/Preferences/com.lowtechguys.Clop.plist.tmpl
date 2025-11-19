@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Auto-updates -->
+	<key>SUAutomaticallyUpdate</key>
+	<true/>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUSendProfileInfo</key>
+	<false/>
+
+	<!-- CLI installed -->
+	<key>cliInstalled</key>
+	<true/>
+
+	<!-- Onboarding finished -->
+	<key>finishedOnboarding</key>
+	<true/>
+
+	<!-- Show menubar icon -->
+	<key>showMenubarIcon</key>
+	<true/>
+
+	<!-- Watch Downloads folder for images -->
+	<key>imageDirs</key>
+	<array>
+		<string>{{ .chezmoi.homeDir }}/Downloads</string>
+	</array>
+
+	<!-- Don't watch any folders for videos -->
+	<key>videoDirs</key>
+	<array/>
+
+	<!-- Format conversions: Convert to JPEG -->
+	<key>formatsToConvertToJPEG</key>
+	<array>
+		<string>"public.avif"</string>
+		<string>{"identifier":"public.heic","constantIndex":68}</string>
+		<string>{"identifier":"org.webmproject.webp","constantIndex":70}</string>
+		<string>{"identifier":"com.microsoft.bmp","constantIndex":62}</string>
+	</array>
+
+	<!-- Format conversions: Convert to MP4 -->
+	<key>formatsToConvertToMP4</key>
+	<array>
+		<string>{"identifier":"public.mpeg-2-video","constantIndex":85}</string>
+		<string>{"identifier":"public.mpeg","constantIndex":84}</string>
+		<string>{"identifier":"com.apple.quicktime-movie","constantIndex":83}</string>
+		<string>"org.webmproject.webm"</string>
+	</array>
+
+	<!-- Format conversions: Convert to PNG -->
+	<key>formatsToConvertToPNG</key>
+	<array>
+		<string>{"identifier":"public.tiff","constantIndex":58}</string>
+	</array>
+
+	<!-- Formats to skip optimizing -->
+	<key>imageFormatsToSkip</key>
+	<array>
+		<string>{"identifier":"public.tiff","constantIndex":58}</string>
+	</array>
+
+	<key>videoFormatsToSkip</key>
+	<array>
+		<string>"com.apple.m4v-video"</string>
+	</array>
+
+	<!-- Output behavior: Save in same folder (don't replace original) -->
+	<key>optimisedImageBehaviour</key>
+	<string>sameFolder</string>
+	<key>optimisedVideoBehaviour</key>
+	<string>sameFolder</string>
+
+	<!-- Naming templates for same folder -->
+	<key>sameFolderNameTemplateImage</key>
+	<string>%f-optimised.%e</string>
+	<key>sameFolderNameTemplatePDF</key>
+	<string>%f-optimised.%e</string>
+	<key>sameFolderNameTemplateVideo</key>
+	<string>%f-optimised.%e</string>
+
+	<key>specificFolderNameTemplateImage</key>
+	<string>%P/optimised/%f.%e</string>
+	<key>specificFolderNameTemplatePDF</key>
+	<string>%P/optimised/%f.%e</string>
+	<key>specificFolderNameTemplateVideo</key>
+	<string>%P/optimised/%f.%e</string>
+
+	<!-- Max file counts -->
+	<key>maxImageFileCount</key>
+	<integer>100</integer>
+	<key>maxVideoFileCount</key>
+	<integer>100</integer>
+
+	<!-- Preset crop sizes -->
+	<key>savedCropSizes</key>
+	<array>
+		<string>{"isAspectRatio":false,"width":1920,"smartCrop":false,"height":1080,"name":"1080p","longEdge":false}</string>
+		<string>{"isAspectRatio":false,"width":1280,"smartCrop":false,"height":720,"name":"720p","longEdge":false}</string>
+		<string>{"isAspectRatio":false,"width":1440,"smartCrop":false,"height":900,"name":"Mac App Store","longEdge":false}</string>
+		<string>{"isAspectRatio":false,"width":1200,"smartCrop":false,"height":630,"name":"OpenGraph","longEdge":false}</string>
+		<string>{"isAspectRatio":false,"width":1600,"smartCrop":false,"height":900,"name":"Twitter","longEdge":false}</string>
+		<string>{"isAspectRatio":false,"width":128,"smartCrop":false,"height":128,"name":"Small Square","longEdge":false}</string>
+		<string>{"isAspectRatio":false,"width":512,"smartCrop":false,"height":512,"name":"Medium Square","longEdge":false}</string>
+		<string>{"isAspectRatio":false,"width":1024,"smartCrop":false,"height":1024,"name":"Large Square","longEdge":false}</string>
+	</array>
+</dict>
+</plist>

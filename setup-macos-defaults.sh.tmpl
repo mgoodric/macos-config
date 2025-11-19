@@ -1,0 +1,314 @@
+#!/usr/bin/env bash
+# save as: setup-macos-defaults.sh
+
+# Close System Preferences to prevent override
+osascript -e 'tell application "System Preferences" to quit'
+
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+###############################################################################
+# Computer Name                                                               #
+###############################################################################
+
+# Set computer name (as done via System Settings → General → Sharing)
+echo "Setting computer name to: {{ .computerName }}"
+sudo scutil --set ComputerName "{{ .computerName }}"
+sudo scutil --set HostName "{{ .computerName }}"
+sudo scutil --set LocalHostName "{{ .computerName }}"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "{{ .computerName }}"
+
+###############################################################################
+# General UI/UX                                                               #
+###############################################################################
+
+# Disable the "Are you sure you want to open this application?" dialog
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+
+# Expand save panel by default
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+
+# Expand print panel by default
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
+
+# Use 24-hour time format
+defaults write NSGlobalDomain AppleICUForce24HourTime -bool true
+
+# Show 24-hour time on lock screen
+defaults write com.apple.loginwindow.plist showInputMenu -bool true
+
+# Automatically quit printer app once the print jobs complete
+defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+
+# Reveal IP address, hostname, OS version, etc. when clicking the clock
+# in the login window
+sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+
+# Enable subpixel font rendering on non-Apple LCDs
+# Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
+defaults write NSGlobalDomain AppleFontSmoothing -int 1
+
+# Enable HiDPI display modes (requires restart)
+sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+
+###############################################################################
+# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
+###############################################################################
+
+# Trackpad: enable tap to click for this user and for the login screen
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+# Trackpad: map bottom right corner to right-click
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
+
+# Increase sound quality for Bluetooth headphones/headsets
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+
+###############################################################################
+# Energy saving                                                               #
+###############################################################################
+
+# Restart automatically if the computer freezes
+sudo systemsetup -setrestartfreeze on
+
+# Sleep the display after 15 minutes
+sudo pmset -a displaysleep 15
+
+# Disable machine sleep while charging
+sudo pmset -c sleep 0
+
+# Set machine sleep to 5 minutes on battery
+sudo pmset -b sleep 5
+
+# Set standby delay to 24 hours (default is 1 hour)
+sudo pmset -a standbydelay 86400
+
+# Never go into computer sleep mode
+sudo systemsetup -setcomputersleep Off > /dev/null
+
+# Hibernation mode
+# 0: Disable hibernation (speeds up entering sleep mode)
+# 3: Copy RAM to disk so the system state can still be restored in case of a
+#    power failure.
+sudo pmset -a hibernatemode 0
+
+###############################################################################
+# Menu Bar                                                                    #
+###############################################################################
+
+# Show Bluetooth in menu bar (macOS 13+)
+defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -bool true
+
+# Show Sound in menu bar (macOS 13+)
+defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -bool true
+
+# Hide Spotlight from menu bar (macOS 13+)
+defaults write com.apple.Spotlight "NSStatusItem Visible Item-0" -bool false
+
+###############################################################################
+# Finder                                                                      #
+###############################################################################
+
+# Show hidden files by default
+defaults write com.apple.finder AppleShowAllFiles -bool true
+
+# Show all filename extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+# Show status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# Show path bar
+defaults write com.apple.finder ShowPathbar -bool true
+
+# Keep folders on top when sorting by name
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
+# When performing a search, search the current folder by default
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+# Disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# Don't show warning before removing from iCloud Drive
+defaults write com.apple.finder FXEnableRemoveFromICloudDriveWarning -bool false
+
+# Avoid creating .DS_Store files on network or USB volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+# Use list view in all Finder windows by default
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+# Show the ~/Library folder
+chflags nohidden ~/Library
+
+# Show the /Volumes folder
+sudo chflags nohidden /Volumes
+
+
+# Don't show hard disks on the desktop
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+
+# Don't show external hard disks on the desktop
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
+
+# Don't show removable media on the desktop
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
+
+# Don't show mounted servers on the desktop
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
+
+# New Finder windows show home folder
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
+
+# Open folders in tabs instead of new windows
+defaults write com.apple.finder FinderSpawnTab -bool true
+
+# Show warning before emptying the Trash
+defaults write com.apple.finder WarnOnEmptyTrash -bool true
+
+
+
+###############################################################################
+# Dock                                                                        #
+###############################################################################
+
+# Position Dock on the left side of the screen
+defaults write com.apple.dock orientation -string "left"
+
+# Don't show recent applications in Dock
+defaults write com.apple.dock show-recents -bool false
+
+# Don’t animate opening applications from the Dock
+defaults write com.apple.dock launchanim -bool false
+
+# Show indicator lights for open applications in the Dock
+defaults write com.apple.dock show-process-indicators -bool true
+
+# Minimize windows into their application’s icon
+defaults write com.apple.dock minimize-to-application -bool true
+
+# Change minimize/maximize window effect
+defaults write com.apple.dock mineffect -string "scale"
+
+###############################################################################
+# Safari & WebKit                                                             #
+###############################################################################
+
+# Privacy: don't send search queries to Apple
+defaults write com.apple.Safari UniversalSearchEnabled -bool false
+defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+
+# Show the full URL in the address bar
+defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+
+# Enable the Develop menu and the Web Inspector
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+
+###############################################################################
+# Screenshots                                                                 #
+###############################################################################
+
+# Save screenshots to Downloads folder
+defaults write com.apple.screencapture location -string "${HOME}/Downloads"
+
+# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+defaults write com.apple.screencapture type -string "png"
+
+# Disable shadow in screenshots
+defaults write com.apple.screencapture disable-shadow -bool true
+
+###############################################################################
+# Terminal                                                                    #
+###############################################################################
+
+# Only use UTF-8 in Terminal.app
+defaults write com.apple.terminal StringEncodings -array 4
+
+# Don’t display the annoying prompt when quitting iTerm
+defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+
+###############################################################################
+# Time Machine                                                                #
+###############################################################################
+
+# Prevent Time Machine from prompting to use new hard drives as backup volume
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+
+###############################################################################
+# Mac App Store                                                               #
+###############################################################################
+
+# Enable the automatic update check
+defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+
+# Download newly available updates in background
+defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
+
+# Install System data files & security updates
+defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+
+# Allow the App Store to reboot machine on macOS updates
+defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
+
+# Automatically download apps purchased on other Macs
+defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
+
+# Turn on app auto-update
+defaults write com.apple.commerce AutoUpdate -bool true
+
+# Check for software updates daily, not just once per week
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+
+# Enable the WebKit Developer Tools in the Mac App Store
+defaults write com.apple.appstore WebKitDeveloperExtras -bool true
+
+# Enable Debug Menu in the Mac App Store
+defaults write com.apple.appstore ShowDebugMenu -bool true
+
+###############################################################################
+# Keka                                                                        #
+###############################################################################
+
+if [[ -d "/Applications/Keka.app" ]]; then
+    echo "Configuring Keka..."
+
+    # Extract to same folder as archive
+    defaults write com.aone.keka defaultExtractionFolder -int 0
+
+    # Auto-extract without dialog
+    defaults write com.aone.keka alwaysExtract -bool true
+
+    # Close after operation
+    defaults write com.aone.keka closeAfterExtraction -bool true
+    defaults write com.aone.keka closeAfterCompression -bool true
+
+    # Don't move archives to trash after extraction (safer default)
+    defaults write com.aone.keka deleteArchiveAfterExtraction -bool false
+
+    echo "✅ Keka configured"
+fi
+
+###############################################################################
+# Kill affected applications                                                  #
+###############################################################################
+
+for app in "Dock" "Finder" "Safari" "SystemUIServer", "Keka"; do
+    killall "${app}" &> /dev/null
+  done
+
+  echo "Done. Some changes require a logout/restart to take effect."

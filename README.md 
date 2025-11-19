@@ -1,0 +1,38 @@
+# macOS Configuration
+
+Automated macOS setup using chezmoi, Homebrew, and shell scripts.
+
+## Fresh Install
+
+Run this one command:
+```bash
+bash <(curl -s https://raw.githubusercontent.com/mgoodric/macos-config/main/bootstrap.sh)
+```
+
+This will:
+1. Install Homebrew
+2. Install chezmoi
+3. Clone and apply dotfiles
+4. Install all Homebrew packages
+5. Configure macOS defaults
+6. Run app-specific setup
+
+## Manual Steps
+
+After automated setup, see [POST_INSTALL.md](POST_INSTALL.md) for remaining manual steps.
+
+## Updating
+
+After making changes to your dotfiles:
+```bash
+chezmoi edit ~/.zshrc        # Edit the source
+chezmoi apply                # Apply changes
+chezmoi cd                   # Go to source directory
+git add . && git commit -m "Update zshrc"
+git push
+```
+
+## TODO
+- [ ] Validated Atuin Configuration
+- [ ] Atuin Sync
+- 
