@@ -39,12 +39,14 @@ bash $(chezmoi source-path)/post-icloud-setup.sh
    ```
 
 ### iTerm2
-1. Open iTerm2 → Preferences
-2. General → Preferences → Load preferences from custom folder:
-   - Check the box and select `~/.config/iterm2` (if you create a config)
-3. Advanced → Search for "session"
-   - Set "Allow sessions to survive logging out and back in" to **No** (for Touch ID sudo to work)
-4. Restart iTerm2
+1. Open iTerm2 (preferences are pre-configured via chezmoi)
+2. Settings are already configured:
+   - JetBrains Mono Nerd Font
+   - One Dark color scheme
+   - Unlimited scrollback
+   - Shell integration enabled
+   - Session restoration disabled (for Touch ID sudo)
+3. Customize further if needed (Preferences → Profiles)
 
 ### tmux
 1. Open tmux: `tmux`
@@ -120,9 +122,47 @@ bash $(chezmoi source-path)/post-icloud-setup.sh
    - Configure GPU settings
    - Set up project libraries
 
+### CleanShot X
+1. Open CleanShot X (preferences are pre-configured via chezmoi)
+2. Settings are already configured:
+   - Save location: ~/Downloads/Screenshots
+   - Format: PNG
+   - Copy to clipboard AND save to disk
+   - Hide desktop icons in captures
+   - Mouse cursor excluded
+   - Auto-updates enabled
+3. Replace macOS default screenshot shortcuts:
+   - Open CleanShot X → Preferences → Keyboard Shortcuts
+   - Click "Replace system shortcuts" button
+   - This will capture Cmd+Shift+3, Cmd+Shift+4, and Cmd+Shift+5
+4. Grant Screen Recording permission when prompted:
+   - System Settings → Privacy & Security → Screen Recording
+   - Enable CleanShot X
+
 ### Keka
 1. Open Keka → Preferences → General
 2. Click "Install command line tool"
+
+### CleanShot X
+1. Open CleanShot X (preferences are pre-configured via chezmoi)
+2. Settings are already configured:
+   - Launch at login enabled
+   - Hide desktop icons in captures
+   - Auto-updates enabled
+3. Activate license if needed
+
+### Clop
+1. Open Clop (preferences are pre-configured via chezmoi)
+2. Settings are already configured:
+   - Launch at login enabled
+   - CLI tool installed
+   - Auto-updates enabled
+   - Watches ~/Downloads for images
+   - Format conversions: HEIC/AVIF/WebP → JPEG, TIFF → PNG
+3. Manual configuration needed:
+   - Enable clipboard optimization for images (Preferences → Clipboard)
+   - Configure to exclude removable media if available in settings
+4. Grant necessary permissions when prompted
 
 ### Discord, Slack, Signal
 Sign in to each application

@@ -76,5 +76,28 @@ if [[ -d "/Applications/Vivaldi.app" ]]; then
     echo "✅ Vivaldi configured as default browser"
 fi
 
+# Create Screenshots folder
+mkdir -p "$HOME/Downloads/Screenshots"
+echo "✅ Screenshots folder created"
+
+# Install Clop CLI and set launch at login
+if [[ -d "/Applications/Clop.app" ]]; then
+    echo "Configuring Clop..."
+
+    # Install CLI tool
+    if [[ ! -f /usr/local/bin/clop ]]; then
+        /Applications/Clop.app/Contents/MacOS/Clop --install-cli 2>/dev/null || true
+        echo "✅ Clop CLI installed"
+    else
+        echo "⏭️  Clop CLI already installed"
+    fi
+
+    # Enable launch at login using osascript
+    osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Clop.app", hidden:false}' 2>/dev/null || true
+    echo "✅ Clop configured to launch at login"
+else
+    echo "⏭️  Clop not installed yet"
+fi
+
 echo "✅ App configurations complete"
 
