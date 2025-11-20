@@ -108,10 +108,13 @@ sudo pmset -a hibernatemode 0
 ###############################################################################
 
 # Show Bluetooth in menu bar (macOS 13+)
-defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC Bluetooth" -bool true
 
 # Show Sound in menu bar (macOS 13+)
-defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC Sound" -bool true
+
+# Show WiFi in menu bar (macOS 13+)
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC WiFi" -bool true
 
 # Hide Spotlight from menu bar (macOS 13+)
 defaults write com.apple.Spotlight "NSStatusItem Visible Item-0" -bool false
@@ -156,7 +159,6 @@ chflags nohidden ~/Library
 
 # Show the /Volumes folder
 sudo chflags nohidden /Volumes
-
 
 # Don't show hard disks on the desktop
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
@@ -232,7 +234,7 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 ###############################################################################
 
 # Save screenshots to Downloads folder
-defaults write com.apple.screencapture location -string "${HOME}/Downloads"
+defaults write com.apple.screencapture location -string "${HOME}/Downloads/Screenshots"
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"

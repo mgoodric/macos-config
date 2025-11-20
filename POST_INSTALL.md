@@ -29,12 +29,20 @@ After running `bootstrap.sh`, complete these manual steps:
    ```
 
 ### iTerm2
-1. Open iTerm2 (preferences are pre-configured via bootstrap script)
-2. Settings are already configured:
-   - MesloLGM Nerd Font (installed by Oh My Posh)
-   - Font automatically configured by setup script
-   - Restart iTerm2 if font doesn't appear immediately
-3. Customize further if needed (Preferences → Profiles → Text → Font)
+1. Open iTerm2
+2. The MesloLGM Nerd Font has been installed by the bootstrap script
+3. Configure the font manually:
+   - Press `Cmd + ,` to open Preferences
+   - Go to Profiles → Default (or your active profile)
+   - Click the Text tab
+   - Under Font, click "Change Font"
+   - Search for "MesloLGM Nerd Font" or "MesloLGM-NF"
+   - Select it and set size to 13
+   - Close Preferences
+4. If you see duplicate "Default" profiles, delete one:
+   - Preferences → Profiles
+   - Select the duplicate profile
+   - Click the `-` button at the bottom to delete it
 
 ### tmux
 1. Open tmux: `tmux`

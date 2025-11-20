@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 # setup-app-configs.sh
 
+# Initialize Homebrew environment (needed for duti, oh-my-posh, etc.)
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # Import Hazel rules if they exist
 if [[ -d "$(chezmoi source-path)/hazel-rules" ]]; then
     echo "📋 Hazel rules available in $(chezmoi source-path)/hazel-rules/"
@@ -53,25 +60,9 @@ else
     echo "⏭️  Oh My Posh not found, skipping font installation"
 fi
 
-# Configure iTerm2 to use MesloLGM Nerd Font
-if [[ -d "/Applications/iTerm.app" ]]; then
-    echo "Configuring iTerm2 font..."
-    # Set font for Default profile (most users have this profile)
-    defaults write com.googlecode.iterm2 "New Bookmarks" -array-add '{
-        "Name" = "Default";
-        "Normal Font" = "MesloLGM-Nerd-Font 13";
-        "Non Ascii Font" = "MesloLGM-Nerd-Font 13";
-    }' 2>/dev/null || true
-
-    # Alternative: Set global font preference
-    defaults write com.googlecode.iterm2 "Normal Font" -string "MesloLGM-Nerd-Font 13"
-    defaults write com.googlecode.iterm2 "Non Ascii Font" -string "MesloLGM-Nerd-Font 13"
-
-    echo "✅ iTerm2 configured to use MesloLGM Nerd Font"
-    echo "   Note: You may need to restart iTerm2 for changes to take effect"
-else
-    echo "⏭️  iTerm2 not installed"
-fi
+# Note: iTerm2 font configuration is done manually (see POST_INSTALL.md)
+# Programmatic font changes via defaults write can create duplicate profiles
+echo "⚠️  iTerm2 font must be configured manually - see POST_INSTALL.md"
 
 # Atuin configuration - import existing zsh history if it exists
 if [[ -f "$HOME/.zsh_history" ]]; then
@@ -115,6 +106,15 @@ if [[ -d "/Applications/Vivaldi.app" ]]; then
     duti -s com.vivaldi.Vivaldi html
     duti -s com.vivaldi.Vivaldi htm
     echo "✅ Vivaldi configured as default browser"
+fi
+
+# Set iTerm2 as default terminal
+if [[ -d "/Applications/iTerm.app" ]]; then
+    echo "Setting iTerm2 as default terminal..."
+    duti -s com.googlecode.iterm2 .command all
+    duti -s com.googlecode.iterm2 .sh all
+    duti -s com.googlecode.iterm2 public.shell-script all
+    echo "✅ iTerm2 configured as default terminal"
 fi
 
 # Create Screenshots folder
