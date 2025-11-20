@@ -153,6 +153,9 @@ cask 'google-drive'
 # Automated Organizaion
 cask 'hazel'
 
+# Archive utility
+cask 'keka'
+
 # Mac App Store CLI
 brew 'mas'
 

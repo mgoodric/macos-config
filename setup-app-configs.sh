@@ -34,8 +34,10 @@ fi
 # Configure Git (if not in .gitconfig)
 git config --global init.defaultBranch main
 
-# Atuin configuration
-atuin import zsh
+# Atuin configuration - import existing zsh history if it exists
+if [[ -f "$HOME/.zsh_history" ]]; then
+    atuin import zsh || true
+fi
 
 ###############################################################################
 # Enable Touch ID for sudo                                                   #

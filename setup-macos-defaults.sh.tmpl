@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # save as: setup-macos-defaults.sh
 
-# Close System Preferences to prevent override
-osascript -e 'tell application "System Preferences" to quit'
+# Close System Settings/Preferences to prevent override
+# Try both names for compatibility (macOS 13+ uses "System Settings", earlier versions use "System Preferences")
+osascript -e 'tell application "System Settings" to quit' 2>/dev/null || osascript -e 'tell application "System Preferences" to quit' 2>/dev/null || true
 
 # Ask for the administrator password upfront
 sudo -v
