@@ -279,13 +279,20 @@ Location: System Settings → Privacy & Security
 
 ## 6. Dock Configuration
 
-The Dock is automatically configured by the bootstrap script with your preferred apps:
-- ✅ Default macOS apps removed (Safari, Mail, Photos, etc.)
-- ✅ Your apps added: Vivaldi, iTerm2, Obsidian, Slack, Discord, Signal
-- ✅ JetBrains Toolbox added
-- ✅ System Settings and App Store kept for convenience
+The Dock is **automatically configured** based on whether this is a work or personal machine:
 
-If you want to customize further, you can edit the Dock configuration in `setup-app-configs.sh` (search for "Setup the dock").
+**Personal Machine Dock:**
+- ✅ Vivaldi, iTerm2, Obsidian, Slack, Discord, Signal, JetBrains Toolbox
+- ✅ System Settings and App Store
+
+**Work Machine Dock:**
+- ✅ Chrome, Vivaldi, iTerm2, Slack, JetBrains Toolbox
+- ✅ System Settings and App Store
+- ✅ No personal apps (Discord, Signal, Obsidian)
+
+All default macOS apps (Safari, Mail, Photos, etc.) are removed automatically.
+
+**To customize:** Edit `setup-app-configs.sh` and search for "Setup the dock". See `CONDITIONAL_CONFIG.md` for details.
 
 ## 7. Verify Installations
 

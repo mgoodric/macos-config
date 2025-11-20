@@ -8,6 +8,14 @@ elif [[ -f "/usr/local/bin/brew" ]]; then
     eval "$(/usr/local/bin/brew shellenv)"
 fi
 
+# Get computer type from chezmoi data
+COMPUTER_TYPE=$(chezmoi data 2>/dev/null | grep -o '"computerType": "[^"]*"' | cut -d'"' -f4)
+if [[ -z "$COMPUTER_TYPE" ]]; then
+    echo "⚠️  Could not determine computer type, defaulting to 'personal'"
+    COMPUTER_TYPE="personal"
+fi
+echo "🖥️  Configuring for: $COMPUTER_TYPE machine"
+
 # Import Hazel rules if they exist
 if [[ -d "$(chezmoi source-path)/hazel-rules" ]]; then
     echo "📋 Hazel rules available in $(chezmoi source-path)/hazel-rules/"
@@ -98,14 +106,34 @@ if [[ -d "/Applications/Keka.app" ]]; then
     echo "✅ Keka configured as default"
 fi
 
-# Set Vivaldi as default browser
-if [[ -d "/Applications/Vivaldi.app" ]]; then
-    echo "Setting Vivaldi as default browser..."
-    duti -s com.vivaldi.Vivaldi http
-    duti -s com.vivaldi.Vivaldi https
-    duti -s com.vivaldi.Vivaldi html
-    duti -s com.vivaldi.Vivaldi htm
-    echo "✅ Vivaldi configured as default browser"
+# Set default browser based on computer type
+if [[ "$COMPUTER_TYPE" == "work" ]]; then
+    # Work machine: prefer Chrome if available, fallback to Vivaldi
+    if [[ -d "/Applications/Google Chrome.app" ]]; then
+        echo "Setting Chrome as default browser (work machine)..."
+        duti -s com.google.Chrome http
+        duti -s com.google.Chrome https
+        duti -s com.google.Chrome html
+        duti -s com.google.Chrome htm
+        echo "✅ Chrome configured as default browser"
+    elif [[ -d "/Applications/Vivaldi.app" ]]; then
+        echo "Setting Vivaldi as default browser (Chrome not found)..."
+        duti -s com.vivaldi.Vivaldi http
+        duti -s com.vivaldi.Vivaldi https
+        duti -s com.vivaldi.Vivaldi html
+        duti -s com.vivaldi.Vivaldi htm
+        echo "✅ Vivaldi configured as default browser"
+    fi
+else
+    # Personal machine: prefer Vivaldi
+    if [[ -d "/Applications/Vivaldi.app" ]]; then
+        echo "Setting Vivaldi as default browser (personal machine)..."
+        duti -s com.vivaldi.Vivaldi http
+        duti -s com.vivaldi.Vivaldi https
+        duti -s com.vivaldi.Vivaldi html
+        duti -s com.vivaldi.Vivaldi htm
+        echo "✅ Vivaldi configured as default browser"
+    fi
 fi
 
 # Set iTerm2 as default terminal
@@ -148,9 +176,9 @@ fi
 
 ## Setup the dock
 if command -v dockutil &> /dev/null; then
-    echo "Configuring Dock..."
+    echo "Configuring Dock for $COMPUTER_TYPE machine..."
 
-    # Remove default macOS apps
+    # Remove default macOS apps (same for all machines)
     dockutil --remove 'Safari' --no-restart 2>/dev/null || true
     dockutil --remove 'Mail' --no-restart 2>/dev/null || true
     dockutil --remove 'Maps' --no-restart 2>/dev/null || true
@@ -170,23 +198,35 @@ if command -v dockutil &> /dev/null; then
     dockutil --remove 'System Settings' --no-restart 2>/dev/null || true
     dockutil --remove 'iPhone Mirroring' --no-restart 2>/dev/null || true
 
-    # Add your preferred apps (only if installed)
-    [[ -d "/Applications/Vivaldi.app" ]] && dockutil --add "/Applications/Vivaldi.app" --no-restart 2>/dev/null || true
-    [[ -d "/Applications/iTerm.app" ]] && dockutil --add "/Applications/iTerm.app" --no-restart 2>/dev/null || true
-    [[ -d "/Applications/Obsidian.app" ]] && dockutil --add "/Applications/Obsidian.app" --no-restart 2>/dev/null || true
-    [[ -d "/Applications/Slack.app" ]] && dockutil --add "/Applications/Slack.app" --no-restart 2>/dev/null || true
-    [[ -d "/Applications/Discord.app" ]] && dockutil --add "/Applications/Discord.app" --no-restart 2>/dev/null || true
-    [[ -d "/Applications/Signal.app" ]] && dockutil --add "/Applications/Signal.app" --no-restart 2>/dev/null || true
+    if [[ "$COMPUTER_TYPE" == "work" ]]; then
+        # Work Dock configuration
+        [[ -d "/Applications/Google Chrome.app" ]] && dockutil --add "/Applications/Google Chrome.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/Vivaldi.app" ]] && dockutil --add "/Applications/Vivaldi.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/iTerm.app" ]] && dockutil --add "/Applications/iTerm.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/Slack.app" ]] && dockutil --add "/Applications/Slack.app" --no-restart 2>/dev/null || true
+        # Add work-specific apps
+        # [[ -d "/Applications/Microsoft Teams.app" ]] && dockutil --add "/Applications/Microsoft Teams.app" --no-restart 2>/dev/null || true
+        # [[ -d "/Applications/Zoom.app" ]] && dockutil --add "/Applications/Zoom.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/JetBrains Toolbox.app" ]] && dockutil --add "/Applications/JetBrains Toolbox.app" --no-restart 2>/dev/null || true
+    else
+        # Personal Dock configuration
+        [[ -d "/Applications/Vivaldi.app" ]] && dockutil --add "/Applications/Vivaldi.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/iTerm.app" ]] && dockutil --add "/Applications/iTerm.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/Obsidian.app" ]] && dockutil --add "/Applications/Obsidian.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/Slack.app" ]] && dockutil --add "/Applications/Slack.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/Discord.app" ]] && dockutil --add "/Applications/Discord.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/Signal.app" ]] && dockutil --add "/Applications/Signal.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/JetBrains Toolbox.app" ]] && dockutil --add "/Applications/JetBrains Toolbox.app" --no-restart 2>/dev/null || true
+    fi
 
-    
-    # Add System Settings and App Store back (useful to keep)
+    # Add System Settings and App Store back (useful to keep on all machines)
     dockutil --add "/System/Applications/System Settings.app" --no-restart 2>/dev/null || true
     dockutil --add "/System/Applications/App Store.app" --no-restart 2>/dev/null || true
 
     # Restart Dock to apply changes
     killall Dock
 
-    echo "✅ Dock configured"
+    echo "✅ Dock configured for $COMPUTER_TYPE machine"
 else
     echo "⏭️  dockutil not installed, skipping Dock configuration"
 fi
