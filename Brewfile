@@ -1,13 +1,6 @@
-# Tap homebrew
-tap 'homebrew/cask'
-tap 'homebrew/cask-drivers'
-tap 'homebrew/cask-fonts'
-tap 'homebrew/cask-versions'
-tap 'homebrew/core'
-tap 'homebrew/boneyard'
-tap 'homebrew/dev-tools'
-tap 'homebrew/bundle'
-tap 'homebrew/services'
+# Tap third-party repositories
+# Note: homebrew/cask, homebrew/core, and homebrew/cask-fonts are now included by default
+# and no longer need to be tapped explicitly in Homebrew 4.0+
 
 tap 'jandedobbeleer/oh-my-posh'
 
