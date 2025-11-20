@@ -1,0 +1,87 @@
+# Brewfile.personal - Personal machine specific packages
+
+##
+# AI
+##
+
+cask 'claude'
+brew 'ollama'
+
+##
+# Browsers
+##
+
+cask 'vivaldi'
+
+##
+# Security
+##
+
+cask '1password'
+cask '1password-cli'
+
+##
+# Chat & Communication
+##
+
+cask 'slack'
+cask 'discord'
+cask 'signal'
+
+##
+# Creative
+##
+
+cask 'adobe-creative-cloud'
+cask 'minstaller'
+
+# Note: DaVinci Resolve Studio must be installed manually
+# See POST_INSTALL.md
+
+##
+# Development
+##
+
+cask 'jetbrains-toolbox'
+cask 'claude-code'
+
+# Note: Parallels must be installed manually due to macOS security restrictions
+# Download from: https://www.parallels.com/products/desktop/download/
+
+##
+# Security (Personal)
+##
+
+# Note: Private Internet Access must be installed manually due to macOS security restrictions
+# Download from: https://www.privateinternetaccess.com/pages/download
+
+cask 'wifiman'
+
+##
+# Utilities
+##
+
+# Note: CalDigit Thunderbolt Station drivers must be installed manually if you have this hardware
+# Requires Rosetta 2 and kernel extension approval. See POST_INSTALL.md
+
+cask 'cleanshot'
+cask 'clop'
+cask 'elgato-stream-deck'
+cask 'google-drive'
+cask 'hazel'
+
+##
+# Mac App Store Apps
+##
+
+mas 'Magnet', id: 441258766
+mas 'RapidDMG', id: 6444896245
+mas 'NEEWER Control Center', id: 1592424571
+
+##
+# Productivity
+##
+
+cask 'openaudible'
+cask 'obsidian'
+cask 'quicken'

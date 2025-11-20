@@ -1,0 +1,77 @@
+# Brewfile.work - Work machine specific packages
+
+##
+# Browsers
+##
+
+# Work browser
+cask 'google-chrome'
+
+# Personal browser (also used for work)
+cask 'vivaldi'
+
+##
+# Security
+##
+
+cask '1password'
+cask '1password-cli'
+
+##
+# Communication
+##
+
+cask 'slack'
+
+# Additional work communication tools
+# cask 'microsoft-teams'
+# cask 'zoom'
+
+##
+# Development
+##
+
+# IDEs
+cask 'jetbrains-toolbox'
+
+# Company-specific tools
+# brew 'your-company-cli'
+# cask 'your-company-vpn'
+
+##
+# Utilities (duplicated with personal for future work policy changes)
+##
+
+# Screen capture tool
+cask 'cleanshot'
+
+# Image optimizer
+cask 'clop'
+
+# Stream Deck control
+cask 'elgato-stream-deck'
+
+# File automation
+cask 'hazel'
+
+##
+# Productivity
+##
+
+# Note-taking
+# cask 'notion'
+# cask 'evernote'
+
+# Calendar/Email
+# cask 'microsoft-outlook'
+
+##
+# Add your work-specific tools here
+##
+
+# Examples:
+# brew 'kubectl'  # Kubernetes CLI
+# brew 'terraform'  # Infrastructure as code
+# brew 'awscli'  # AWS CLI
+# cask 'docker'  # Docker Desktop (if allowed by company)
+# cask 'postman'  # API testing

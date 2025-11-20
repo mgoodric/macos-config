@@ -36,7 +36,30 @@ CHEZMOI_SOURCE=$(chezmoi source-path)
 
 # Install Homebrew packages
 echo "📦 Installing Homebrew packages..."
-brew bundle --file="$CHEZMOI_SOURCE/Brewfile" || echo "⚠️  Some Homebrew packages failed to install, continuing..."
+
+# Install core packages (common to all machines)
+if [[ -f "$CHEZMOI_SOURCE/Brewfile.core" ]]; then
+    echo "📦 Installing core packages..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.core" || echo "⚠️  Some core packages failed to install, continuing..."
+fi
+
+# Get computer type from chezmoi data
+COMPUTER_TYPE=$(chezmoi data | grep -o '"computerType": "[^"]*"' | cut -d'"' -f4)
+
+# Install computer-type-specific packages
+if [[ "$COMPUTER_TYPE" == "work" ]] && [[ -f "$CHEZMOI_SOURCE/Brewfile.work" ]]; then
+    echo "📦 Installing work-specific packages..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.work" || echo "⚠️  Some work packages failed to install, continuing..."
+elif [[ "$COMPUTER_TYPE" == "personal" ]] && [[ -f "$CHEZMOI_SOURCE/Brewfile.personal" ]]; then
+    echo "📦 Installing personal packages..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.personal" || echo "⚠️  Some personal packages failed to install, continuing..."
+fi
+
+# Fallback to main Brewfile if it exists (for backwards compatibility)
+if [[ -f "$CHEZMOI_SOURCE/Brewfile" ]]; then
+    echo "📦 Installing packages from main Brewfile..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile" || echo "⚠️  Some Homebrew packages failed to install, continuing..."
+fi
 
 # Run macOS defaults
 if [[ -f "$CHEZMOI_SOURCE/setup-macos-defaults.sh.tmpl" ]]; then

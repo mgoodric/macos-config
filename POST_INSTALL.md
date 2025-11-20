@@ -277,15 +277,15 @@ Grant Accessibility access to:
 
 Location: System Settings → Privacy & Security
 
-## 6. Configure Dock
+## 6. Dock Configuration
 
-Remove unwanted apps from Dock and add your frequently used apps:
-- Vivaldi
-- iTerm2
-- Obsidian
-- Slack
-- Discord
-- Your JetBrains IDEs
+The Dock is automatically configured by the bootstrap script with your preferred apps:
+- ✅ Default macOS apps removed (Safari, Mail, Photos, etc.)
+- ✅ Your apps added: Vivaldi, iTerm2, Obsidian, Slack, Discord, Signal
+- ✅ JetBrains Toolbox added
+- ✅ System Settings and App Store kept for convenience
+
+If you want to customize further, you can edit the Dock configuration in `setup-app-configs.sh` (search for "Setup the dock").
 
 ## 7. Verify Installations
 

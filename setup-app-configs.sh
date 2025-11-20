@@ -146,5 +146,50 @@ else
     echo "⏭️  Clop not installed yet"
 fi
 
+## Setup the dock
+if command -v dockutil &> /dev/null; then
+    echo "Configuring Dock..."
+
+    # Remove default macOS apps
+    dockutil --remove 'Safari' --no-restart 2>/dev/null || true
+    dockutil --remove 'Mail' --no-restart 2>/dev/null || true
+    dockutil --remove 'Maps' --no-restart 2>/dev/null || true
+    dockutil --remove 'Photos' --no-restart 2>/dev/null || true
+    dockutil --remove 'FaceTime' --no-restart 2>/dev/null || true
+    dockutil --remove 'Messages' --no-restart 2>/dev/null || true
+    dockutil --remove 'Phone' --no-restart 2>/dev/null || true
+    dockutil --remove 'Calendar' --no-restart 2>/dev/null || true
+    dockutil --remove 'Contacts' --no-restart 2>/dev/null || true
+    dockutil --remove 'Reminders' --no-restart 2>/dev/null || true
+    dockutil --remove 'Notes' --no-restart 2>/dev/null || true
+    dockutil --remove 'TV' --no-restart 2>/dev/null || true
+    dockutil --remove 'Music' --no-restart 2>/dev/null || true
+    dockutil --remove 'Podcasts' --no-restart 2>/dev/null || true
+    dockutil --remove 'News' --no-restart 2>/dev/null || true
+    dockutil --remove 'App Store' --no-restart 2>/dev/null || true
+    dockutil --remove 'System Settings' --no-restart 2>/dev/null || true
+    dockutil --remove 'iPhone Mirroring' --no-restart 2>/dev/null || true
+
+    # Add your preferred apps (only if installed)
+    [[ -d "/Applications/Vivaldi.app" ]] && dockutil --add "/Applications/Vivaldi.app" --no-restart 2>/dev/null || true
+    [[ -d "/Applications/iTerm.app" ]] && dockutil --add "/Applications/iTerm.app" --no-restart 2>/dev/null || true
+    [[ -d "/Applications/Obsidian.app" ]] && dockutil --add "/Applications/Obsidian.app" --no-restart 2>/dev/null || true
+    [[ -d "/Applications/Slack.app" ]] && dockutil --add "/Applications/Slack.app" --no-restart 2>/dev/null || true
+    [[ -d "/Applications/Discord.app" ]] && dockutil --add "/Applications/Discord.app" --no-restart 2>/dev/null || true
+    [[ -d "/Applications/Signal.app" ]] && dockutil --add "/Applications/Signal.app" --no-restart 2>/dev/null || true
+
+    
+    # Add System Settings and App Store back (useful to keep)
+    dockutil --add "/System/Applications/System Settings.app" --no-restart 2>/dev/null || true
+    dockutil --add "/System/Applications/App Store.app" --no-restart 2>/dev/null || true
+
+    # Restart Dock to apply changes
+    killall Dock
+
+    echo "✅ Dock configured"
+else
+    echo "⏭️  dockutil not installed, skipping Dock configuration"
+fi
+
 echo "✅ App configurations complete"
 

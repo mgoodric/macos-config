@@ -144,6 +144,9 @@ cask 'clop'
 # Tool for setting default applications
 brew 'duti'
 
+# Tool for managing Dock items
+brew 'dockutil'
+
 # Stream Deck
 cask 'elgato-stream-deck'
 

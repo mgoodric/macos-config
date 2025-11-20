@@ -1,0 +1,96 @@
+# Brewfile.core - Common packages for ALL machines (work and personal)
+
+# Tap third-party repositories
+tap 'jandedobbeleer/oh-my-posh'
+
+##
+# Development Essentials
+##
+
+# Git version control
+brew 'git'
+
+# Container runtime
+brew 'colima'
+
+# Tool for exploring docker images
+brew 'dive'
+
+# JSON processor
+brew 'jq'
+
+# Static site generator
+brew 'hugo'
+
+##
+# Downloaders
+##
+
+brew 'wget'
+brew 'curl', link: true
+
+##
+# Terminals & Shell
+##
+
+# Shell history tool
+brew 'atuin'
+
+# Terminal emulator
+cask 'iterm2'
+
+# Prompt theme engine
+brew 'jandedobbeleer/oh-my-posh/oh-my-posh'
+
+# Terminal multiplexer
+brew 'tmux'
+
+# Shell enhancements
+brew 'zsh-autosuggestions'
+brew 'zsh-syntax-highlighting'
+
+##
+# Utilities
+##
+
+# Application launcher
+cask 'alfred'
+
+# Application uninstaller
+cask 'appcleaner'
+
+# Tool for setting default applications
+brew 'duti'
+
+# Tool for managing Dock items
+brew 'dockutil'
+
+# Archive utility
+cask 'keka'
+
+# Mac App Store CLI
+brew 'mas'
+
+# Keep your Mac awake
+mas 'Amphetamine', id: 937984704
+
+# Upgrade all the things
+brew 'topgrade'
+
+##
+# Fonts - Essential developer fonts
+##
+
+cask 'font-jetbrains-mono'
+cask 'font-fira-code'
+cask 'font-hack-nerd-font'
+cask 'font-fira-code-nerd-font'
+cask 'font-source-code-pro'
+cask 'font-inconsolata'
+cask 'font-roboto-mono'
+cask 'font-ubuntu-mono-derivative-powerline'
+cask 'font-roboto'
+cask 'font-open-sans'
+cask 'font-lato'
+cask 'font-montserrat'
+cask 'font-source-sans-3'
