@@ -3,6 +3,12 @@ set -e  # Exit on error
 
 echo "🚀 Starting macOS setup..."
 
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 # Install Homebrew if not present
 if ! command -v brew &> /dev/null; then
     echo "📦 Installing Homebrew..."

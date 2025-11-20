@@ -79,17 +79,60 @@ After running `bootstrap.sh`, complete these manual steps:
 3. Install applications you need
 
 ### Parallels Desktop
-1. Open Parallels Desktop
-2. Sign in to your Parallels account
-3. Activate your license key
-4. Grant required permissions when prompted:
+**Note:** Parallels must be installed manually (not via Homebrew) due to macOS 26.0 security restrictions.
+
+1. Download Parallels Desktop:
+   - Visit: https://www.parallels.com/products/desktop/download/
+   - Download the installer
+2. Open the downloaded DMG and run the installer
+3. Follow the installation wizard
+4. Sign in to your Parallels account
+5. Activate your license key
+6. Grant required permissions when prompted:
    - System Settings → Privacy & Security → System Extensions
    - Allow Parallels extensions
-5. **Restart your Mac** to complete kernel extension installation
-6. After restart, configure Parallels:
+7. **Restart your Mac** to complete kernel extension installation
+8. After restart, configure Parallels:
    - Set up virtual machines
    - Configure shared folders
    - Adjust performance settings
+
+### Private Internet Access
+**Note:** Private Internet Access must be installed manually (not via Homebrew) due to macOS 26.0 security restrictions.
+
+1. Download Private Internet Access:
+   - Visit: https://www.privateinternetaccess.com/pages/download
+   - Download the macOS installer
+2. Open the downloaded DMG file
+3. Run the installer
+4. Sign in with your PIA account credentials
+5. Configure VPN settings as needed
+
+### CalDigit Thunderbolt Station (Optional)
+**Note:** Only install if you own a CalDigit Thunderbolt Station dock. This requires Rosetta 2 and kernel extension approval.
+
+1. Install Rosetta 2 (required for Intel-based driver):
+   ```bash
+   sudo softwareupdate --install-rosetta --agree-to-license
+   ```
+   Note: Rosetta 2 is difficult to remove once installed. Only proceed if you need this driver.
+
+2. Download CalDigit drivers:
+   - Visit: https://www.caldigit.com/thunderbolt-station/
+   - Download the macOS driver package
+
+3. Install the driver:
+   ```bash
+   brew install --cask caldigit-thunderbolt-charging
+   ```
+   Or manually open the downloaded package
+
+4. Approve kernel extension:
+   - System Settings → Privacy & Security → Security
+   - Click "Allow" next to the blocked CalDigit extension
+   - See: https://developer.apple.com/library/content/technotes/tn2459/_index.html
+
+5. **Restart your Mac** to complete installation
 
 ### DaVinci Resolve Studio
 1. Download DaVinci Resolve Studio:
