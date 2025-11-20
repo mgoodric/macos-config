@@ -36,7 +36,7 @@ CHEZMOI_SOURCE=$(chezmoi source-path)
 
 # Install Homebrew packages
 echo "📦 Installing Homebrew packages..."
-brew bundle --file="$CHEZMOI_SOURCE/Brewfile"
+brew bundle --file="$CHEZMOI_SOURCE/Brewfile" || echo "⚠️  Some Homebrew packages failed to install, continuing..."
 
 # Run macOS defaults
 if [[ -f "$CHEZMOI_SOURCE/setup-macos-defaults.sh" ]]; then
