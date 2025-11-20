@@ -39,7 +39,11 @@ echo "📦 Installing Homebrew packages..."
 brew bundle --file="$CHEZMOI_SOURCE/Brewfile" || echo "⚠️  Some Homebrew packages failed to install, continuing..."
 
 # Run macOS defaults
-if [[ -f "$CHEZMOI_SOURCE/setup-macos-defaults.sh" ]]; then
+if [[ -f "$CHEZMOI_SOURCE/setup-macos-defaults.sh.tmpl" ]]; then
+    echo "⚙️  Configuring macOS defaults..."
+    # Use chezmoi to process the template and execute it
+    chezmoi execute-template < "$CHEZMOI_SOURCE/setup-macos-defaults.sh.tmpl" | bash
+elif [[ -f "$CHEZMOI_SOURCE/setup-macos-defaults.sh" ]]; then
     echo "⚙️  Configuring macOS defaults..."
     bash "$CHEZMOI_SOURCE/setup-macos-defaults.sh"
 fi

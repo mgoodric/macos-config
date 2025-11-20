@@ -215,8 +215,7 @@ cask 'quicken'
 cask 'font-jetbrains-mono'
 cask 'font-fira-code'
 cask 'font-hack-nerd-font'
-cask 'font-firacode-nerd-font'
-cask 'font-firacode-nerd-font-mono'
+cask 'font-fira-code-nerd-font'
 cask 'font-source-code-pro'
 cask 'font-inconsolata'
 cask 'font-roboto-mono'
@@ -230,7 +229,7 @@ cask 'font-roboto'
 cask 'font-open-sans'
 cask 'font-lato'
 cask 'font-montserrat'
-cask 'font-source-sans-pro'
+cask 'font-source-sans-3'
 
 # Original comprehensive font list (984 fonts) removed - many deprecated in Homebrew 4.0+
 # To restore specific fonts, check availability first: brew search font-name

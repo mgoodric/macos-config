@@ -29,14 +29,12 @@ After running `bootstrap.sh`, complete these manual steps:
    ```
 
 ### iTerm2
-1. Open iTerm2 (preferences are pre-configured via chezmoi)
+1. Open iTerm2 (preferences are pre-configured via bootstrap script)
 2. Settings are already configured:
-   - JetBrains Mono Nerd Font
-   - One Dark color scheme
-   - Unlimited scrollback
-   - Shell integration enabled
-   - Session restoration disabled (for Touch ID sudo)
-3. Customize further if needed (Preferences → Profiles)
+   - MesloLGM Nerd Font (installed by Oh My Posh)
+   - Font automatically configured by setup script
+   - Restart iTerm2 if font doesn't appear immediately
+3. Customize further if needed (Preferences → Profiles → Text → Font)
 
 ### tmux
 1. Open tmux: `tmux`

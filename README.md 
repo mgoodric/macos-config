@@ -33,6 +33,7 @@ git push
 ```
 
 ## TODO
-- [ ] Validated Atuin Configuration
 - [ ] Atuin Sync
-- 
+- [ ] Work vs Personal Brewfiles - Can we have chezmoi ask if this is work or personal, run a common brewfile, and then either a personal or work brewfile based on the answer?
+- [ ] Can we automatically configure which icons are on the dock?
+- [ ] 

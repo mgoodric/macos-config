@@ -12,6 +12,13 @@ if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
     echo "Installing Oh My Zsh..."
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     echo "✅ Oh My Zsh installed"
+
+    # Oh My Zsh overwrites .zshrc, so re-apply chezmoi to restore our custom config
+    if command -v chezmoi &> /dev/null; then
+        echo "Restoring custom .zshrc from chezmoi..."
+        chezmoi apply ~/.zshrc
+        echo "✅ Custom .zshrc restored"
+    fi
 else
     echo "⏭️  Oh My Zsh already installed"
 fi
@@ -27,12 +34,44 @@ fi
 
 # Set up Python environment
 if command -v python3 &> /dev/null; then
-    python3 -m pip install --upgrade pip --break-system-packages
+    # Try to upgrade pip (--break-system-packages flag only works on Python 3.11+)
+    python3 -m pip install --upgrade pip --break-system-packages 2>/dev/null || \
+    python3 -m pip install --upgrade pip 2>/dev/null || \
+    echo "⏭️  Skipping pip upgrade"
     # Add any global Python packages you always want
 fi
 
 # Configure Git (if not in .gitconfig)
 git config --global init.defaultBranch main
+
+# Install Oh My Posh Meslo font
+if command -v oh-my-posh &> /dev/null; then
+    echo "Installing MesloLGM Nerd Font for Oh My Posh..."
+    oh-my-posh font install meslo
+    echo "✅ MesloLGM Nerd Font installed"
+else
+    echo "⏭️  Oh My Posh not found, skipping font installation"
+fi
+
+# Configure iTerm2 to use MesloLGM Nerd Font
+if [[ -d "/Applications/iTerm.app" ]]; then
+    echo "Configuring iTerm2 font..."
+    # Set font for Default profile (most users have this profile)
+    defaults write com.googlecode.iterm2 "New Bookmarks" -array-add '{
+        "Name" = "Default";
+        "Normal Font" = "MesloLGM-Nerd-Font 13";
+        "Non Ascii Font" = "MesloLGM-Nerd-Font 13";
+    }' 2>/dev/null || true
+
+    # Alternative: Set global font preference
+    defaults write com.googlecode.iterm2 "Normal Font" -string "MesloLGM-Nerd-Font 13"
+    defaults write com.googlecode.iterm2 "Non Ascii Font" -string "MesloLGM-Nerd-Font 13"
+
+    echo "✅ iTerm2 configured to use MesloLGM Nerd Font"
+    echo "   Note: You may need to restart iTerm2 for changes to take effect"
+else
+    echo "⏭️  iTerm2 not installed"
+fi
 
 # Atuin configuration - import existing zsh history if it exists
 if [[ -f "$HOME/.zsh_history" ]]; then
@@ -88,8 +127,14 @@ if [[ -d "/Applications/Clop.app" ]]; then
 
     # Install CLI tool
     if [[ ! -f /usr/local/bin/clop ]]; then
-        /Applications/Clop.app/Contents/MacOS/Clop --install-cli 2>/dev/null || true
-        echo "✅ Clop CLI installed"
+        # Run Clop CLI install in background (Clop may launch GUI)
+        /Applications/Clop.app/Contents/MacOS/Clop --install-cli &>/dev/null &
+        CLOP_PID=$!
+        # Wait 3 seconds then kill if still running
+        sleep 3
+        kill $CLOP_PID &>/dev/null || true
+        killall Clop &>/dev/null || true
+        echo "✅ Clop CLI install attempted"
     else
         echo "⏭️  Clop CLI already installed"
     fi
