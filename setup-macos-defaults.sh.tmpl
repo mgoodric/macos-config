@@ -179,7 +179,14 @@ defaults write com.apple.finder FinderSpawnTab -bool true
 # Show warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool true
 
+###############################################################################
+# iCloud                                                                      #
+###############################################################################
 
+# Enable iCloud Desktop & Documents sync
+defaults write com.apple.finder FXICloudDriveEnabled -bool true
+defaults write com.apple.finder FXICloudDriveDesktop -bool true
+defaults write com.apple.finder FXICloudDriveDocuments -bool true
 
 ###############################################################################
 # Dock                                                                        #

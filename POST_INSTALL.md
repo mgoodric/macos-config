@@ -4,11 +4,7 @@ After running `bootstrap.sh`, complete these manual steps:
 
 ## 1. Sign into Accounts
 
-### iCloud
-1. Open System Settings → Apple ID
-2. Sign in with your Apple ID
-3. Enable iCloud Drive, Desktop & Documents sync
-4. Wait for initial sync to complete
+> **Note:** iCloud should already be configured during macOS setup. iCloud Desktop & Documents sync is automatically enabled by the bootstrap script.
 
 ### App Store
 1. Open App Store
@@ -18,12 +14,6 @@ After running `bootstrap.sh`, complete these manual steps:
    brew bundle --file=$(chezmoi source-path)/Brewfile
    ```
    This will install apps like Magnet and any other Mac App Store apps you've added to your Brewfile.
-
-### Run iCloud Setup Script
-After signing into iCloud, run:
-```bash
-bash $(chezmoi source-path)/post-icloud-setup.sh
-```
 
 ## 2. Application-Specific Setup
 
