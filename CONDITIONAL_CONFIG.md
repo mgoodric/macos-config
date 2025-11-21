@@ -28,7 +28,7 @@ The `setup-app-configs.sh` script automatically detects whether the machine is *
 4. Slack
 5. Discord
 6. Signal
-7. JetBrains Toolbox
+7. Quicken
 8. System Settings
 9. App Store
 
@@ -36,12 +36,14 @@ The `setup-app-configs.sh` script automatically detects whether the machine is *
 1. Google Chrome
 2. Vivaldi (secondary browser)
 3. iTerm2
-4. Slack
-5. JetBrains Toolbox
-6. System Settings
-7. App Store
+4. Obsidian
+5. Slack
+6. Microsoft Teams
+7. ChatGPT
+8. System Settings
+9. App Store
 
-*Add more work apps by uncommenting lines in the script (Teams, Zoom, etc.)*
+*Microsoft Office apps (Word, Excel, PowerPoint, Outlook, OneNote) are installed but not in Dock - launch from Applications or Spotlight*
 
 ### 3. App-Specific Configurations
 
@@ -165,7 +167,7 @@ setup-app-configs.sh detects "personal"
 ↓
 Sets Vivaldi as default browser
 ↓
-Configures Dock with Obsidian, Discord, Signal
+Configures Dock with Obsidian, Discord, Signal, Quicken
 ```
 
 ### Scenario 2: New Work Mac
@@ -174,13 +176,15 @@ bootstrap.sh prompts → answer "work"
 ↓
 Installs Brewfile.core + Brewfile.work
 ↓
+Installs: Microsoft Teams, ChatGPT, Microsoft Office suite
+↓
 setup-app-configs.sh detects "work"
 ↓
 Sets Chrome as default browser (with Vivaldi fallback)
 ↓
-Configures Dock with Chrome, work communication tools
+Configures Dock with Chrome, Obsidian, Teams, ChatGPT
 ↓
-Skips personal apps (Discord, Signal, Obsidian not installed)
+Skips personal-only apps (Discord, Signal, Quicken not installed)
 ```
 
 ### Scenario 3: Switching Work Policies

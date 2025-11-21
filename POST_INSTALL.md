@@ -38,8 +38,14 @@ After running `bootstrap.sh`, complete these manual steps:
    - Under Font, click "Change Font"
    - Search for "MesloLGM Nerd Font" or "MesloLGM-NF"
    - Select it and set size to 13
+4. Configure font rendering (still in Text tab):
+   - ✅ Enable "Anti-aliased" (for smooth text)
+   - ⬜ Disable "Use ligatures" (if you don't want ligatures)
+   - ✅ Enable "Draw Powerline glyphs" (required for Oh My Posh icons)
+   - Set "Horizontal spacing" to 1
+   - Set "Vertical spacing" to 1
    - Close Preferences
-4. If you see duplicate "Default" profiles, delete one:
+5. If you see duplicate "Default" profiles, delete one:
    - Preferences → Profiles
    - Select the duplicate profile
    - Click the `-` button at the bottom to delete it
@@ -282,13 +288,14 @@ Location: System Settings → Privacy & Security
 The Dock is **automatically configured** based on whether this is a work or personal machine:
 
 **Personal Machine Dock:**
-- ✅ Vivaldi, iTerm2, Obsidian, Slack, Discord, Signal, JetBrains Toolbox
+- ✅ Vivaldi, iTerm2, Obsidian, Slack, Discord, Signal, Quicken
 - ✅ System Settings and App Store
 
 **Work Machine Dock:**
-- ✅ Chrome, Vivaldi, iTerm2, Slack, JetBrains Toolbox
+- ✅ Chrome, Vivaldi, iTerm2, Obsidian, Slack, Microsoft Teams, ChatGPT
 - ✅ System Settings and App Store
-- ✅ No personal apps (Discord, Signal, Obsidian)
+- ✅ Microsoft Office apps available (Word, Excel, PowerPoint, Outlook, OneNote)
+- ✅ No personal-only apps (Discord, Signal, Quicken)
 
 All default macOS apps (Safari, Mail, Photos, etc.) are removed automatically.
 

@@ -79,29 +79,38 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 # Energy saving                                                               #
 ###############################################################################
 
-# Restart automatically if the computer freezes
-sudo systemsetup -setrestartfreeze on
+# Skip power management settings in VMs (not supported)
+if ! system_profiler SPHardwareDataType | grep -q "Model Identifier.*VMware\|Parallels\|VirtualBox"; then
+    echo "Configuring power management settings..."
 
-# Sleep the display after 15 minutes
-sudo pmset -a displaysleep 15
+    # Restart automatically if the computer freezes
+    sudo systemsetup -setrestartfreeze on 2>/dev/null || true
 
-# Disable machine sleep while charging
-sudo pmset -c sleep 0
+    # Sleep the display after 15 minutes
+    sudo pmset -a displaysleep 15 2>/dev/null || true
 
-# Set machine sleep to 5 minutes on battery
-sudo pmset -b sleep 5
+    # Disable machine sleep while charging
+    sudo pmset -c sleep 0 2>/dev/null || true
 
-# Set standby delay to 24 hours (default is 1 hour)
-sudo pmset -a standbydelay 86400
+    # Set machine sleep to 5 minutes on battery
+    sudo pmset -b sleep 5 2>/dev/null || true
 
-# Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
+    # Set standby delay to 24 hours (default is 1 hour)
+    sudo pmset -a standbydelay 86400 2>/dev/null || true
 
-# Hibernation mode
-# 0: Disable hibernation (speeds up entering sleep mode)
-# 3: Copy RAM to disk so the system state can still be restored in case of a
-#    power failure.
-sudo pmset -a hibernatemode 0
+    # Never go into computer sleep mode
+    sudo systemsetup -setcomputersleep Off > /dev/null 2>&1 || true
+
+    # Hibernation mode
+    # 0: Disable hibernation (speeds up entering sleep mode)
+    # 3: Copy RAM to disk so the system state can still be restored in case of a
+    #    power failure.
+    sudo pmset -a hibernatemode 0 2>/dev/null || true
+
+    echo "✅ Power management configured"
+else
+    echo "⏭️  Skipping power management (running in VM)"
+fi
 
 ###############################################################################
 # Menu Bar                                                                    #
@@ -118,6 +127,13 @@ defaults write com.apple.controlcenter "NSStatusItem VisibleCC WiFi" -bool true
 
 # Hide Spotlight from menu bar (macOS 13+)
 defaults write com.apple.Spotlight "NSStatusItem Visible Item-0" -bool false
+
+###############################################################################
+# Widgets                                                                     #
+###############################################################################
+
+# Remove all desktop widgets
+defaults delete com.apple.notificationcenterui widgets 2>/dev/null || true
 
 ###############################################################################
 # Finder                                                                      #
@@ -217,17 +233,26 @@ defaults write com.apple.dock mineffect -string "scale"
 # Safari & WebKit                                                             #
 ###############################################################################
 
+# Note: Safari preferences require Safari to be launched at least once
+# and Full Disk Access for the terminal. Errors are silenced.
+
 # Privacy: don't send search queries to Apple
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+defaults write com.apple.Safari UniversalSearchEnabled -bool false 2>/dev/null || true
+defaults write com.apple.Safari SuppressSearchSuggestions -bool true 2>/dev/null || true
 
 # Show the full URL in the address bar
-defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true 2>/dev/null || true
 
 # Enable the Develop menu and the Web Inspector
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+defaults write com.apple.Safari IncludeDevelopMenu -bool true 2>/dev/null || true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true 2>/dev/null || true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true 2>/dev/null || true
+
+if defaults read com.apple.Safari IncludeDevelopMenu &>/dev/null; then
+    echo "✅ Safari preferences configured"
+else
+    echo "⚠️  Safari preferences could not be set (launch Safari first, or grant Full Disk Access to Terminal)"
+fi
 
 ###############################################################################
 # Screenshots                                                                 #
@@ -249,8 +274,17 @@ defaults write com.apple.screencapture disable-shadow -bool true
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
 
-# Don’t display the annoying prompt when quitting iTerm
+###############################################################################
+# iTerm2                                                                      #
+###############################################################################
+
+# Don't display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+
+# Disable Esc key feedback (haptic, sound, visual)
+defaults write com.googlecode.iterm2 HapticFeedbackForEsc -bool false
+defaults write com.googlecode.iterm2 SoundForEsc -bool false
+defaults write com.googlecode.iterm2 VisualIndicatorForEsc -bool false
 
 ###############################################################################
 # Time Machine                                                                #
@@ -317,8 +351,8 @@ fi
 # Kill affected applications                                                  #
 ###############################################################################
 
-for app in "Dock" "Finder" "Safari" "SystemUIServer", "Keka"; do
+for app in "Dock" "Finder" "Safari" "SystemUIServer" "NotificationCenter" "iTerm2" "Keka"; do
     killall "${app}" &> /dev/null
-  done
+done
 
-  echo "Done. Some changes require a logout/restart to take effect."
+echo "Done. Some changes require a logout/restart to take effect."

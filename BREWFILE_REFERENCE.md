@@ -62,16 +62,23 @@
 
 **Communication:**
 - Slack
+- Microsoft Teams
+- Zoom
+
+**AI Tools:**
+- ChatGPT
 
 **Development:**
 - JetBrains Toolbox
+
+**Productivity:**
+- Obsidian
+- Microsoft Office (Word, Excel, PowerPoint, Outlook, OneNote)
 
 **Utilities (duplicated for future policy changes):**
 - CleanShot, Clop, Elgato Stream Deck, Hazel
 
 **Additional Work Tools (commented out, uncomment as needed):**
-- Microsoft Teams
-- Zoom
 - Company CLI tools
 - Company VPN
 
@@ -85,6 +92,7 @@ These apps appear in BOTH personal and work Brewfiles to protect against future 
 - ✅ Slack
 - ✅ Vivaldi
 - ✅ JetBrains Toolbox
+- ✅ Obsidian
 - ✅ CleanShot
 - ✅ Clop
 - ✅ Elgato Stream Deck

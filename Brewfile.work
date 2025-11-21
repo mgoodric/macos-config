@@ -23,9 +23,18 @@ cask '1password-cli'
 
 cask 'slack'
 
-# Additional work communication tools
-# cask 'microsoft-teams'
-# cask 'zoom'
+# Microsoft Teams
+cask 'microsoft-teams'
+
+# Video conferencing
+cask 'zoom'
+
+##
+# AI Tools
+##
+
+# ChatGPT desktop app
+cask 'chatgpt'
 
 ##
 # Development
@@ -58,12 +67,15 @@ cask 'hazel'
 # Productivity
 ##
 
-# Note-taking
+# Note-taking (used on both work and personal)
+cask 'obsidian'
+
+# Microsoft Office Suite (Word, Excel, PowerPoint, Outlook, OneNote)
+cask 'microsoft-office'
+
+# Additional productivity tools (uncomment as needed)
 # cask 'notion'
 # cask 'evernote'
-
-# Calendar/Email
-# cask 'microsoft-outlook'
 
 ##
 # Add your work-specific tools here

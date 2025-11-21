@@ -179,6 +179,8 @@ if command -v dockutil &> /dev/null; then
     echo "Configuring Dock for $COMPUTER_TYPE machine..."
 
     # Remove default macOS apps (same for all machines)
+    dockutil --remove 'Apps' --no-restart 2>/dev/null || true
+    dockutil --remove 'Games' --no-restart 2>/dev/null || true
     dockutil --remove 'Safari' --no-restart 2>/dev/null || true
     dockutil --remove 'Mail' --no-restart 2>/dev/null || true
     dockutil --remove 'Maps' --no-restart 2>/dev/null || true
@@ -203,11 +205,13 @@ if command -v dockutil &> /dev/null; then
         [[ -d "/Applications/Google Chrome.app" ]] && dockutil --add "/Applications/Google Chrome.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/Vivaldi.app" ]] && dockutil --add "/Applications/Vivaldi.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/iTerm.app" ]] && dockutil --add "/Applications/iTerm.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/Obsidian.app" ]] && dockutil --add "/Applications/Obsidian.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/Slack.app" ]] && dockutil --add "/Applications/Slack.app" --no-restart 2>/dev/null || true
-        # Add work-specific apps
-        # [[ -d "/Applications/Microsoft Teams.app" ]] && dockutil --add "/Applications/Microsoft Teams.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/Microsoft Teams.app" ]] && dockutil --add "/Applications/Microsoft Teams.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/ChatGPT.app" ]] && dockutil --add "/Applications/ChatGPT.app" --no-restart 2>/dev/null || true
+        # Add more work apps as needed
         # [[ -d "/Applications/Zoom.app" ]] && dockutil --add "/Applications/Zoom.app" --no-restart 2>/dev/null || true
-        [[ -d "/Applications/JetBrains Toolbox.app" ]] && dockutil --add "/Applications/JetBrains Toolbox.app" --no-restart 2>/dev/null || true
+        # [[ -d "/Applications/Microsoft Outlook.app" ]] && dockutil --add "/Applications/Microsoft Outlook.app" --no-restart 2>/dev/null || true
     else
         # Personal Dock configuration
         [[ -d "/Applications/Vivaldi.app" ]] && dockutil --add "/Applications/Vivaldi.app" --no-restart 2>/dev/null || true
@@ -216,7 +220,7 @@ if command -v dockutil &> /dev/null; then
         [[ -d "/Applications/Slack.app" ]] && dockutil --add "/Applications/Slack.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/Discord.app" ]] && dockutil --add "/Applications/Discord.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/Signal.app" ]] && dockutil --add "/Applications/Signal.app" --no-restart 2>/dev/null || true
-        [[ -d "/Applications/JetBrains Toolbox.app" ]] && dockutil --add "/Applications/JetBrains Toolbox.app" --no-restart 2>/dev/null || true
+        [[ -d "/Applications/Quicken.app" ]] && dockutil --add "/Applications/Quicken.app" --no-restart 2>/dev/null || true
     fi
 
     # Add System Settings and App Store back (useful to keep on all machines)
