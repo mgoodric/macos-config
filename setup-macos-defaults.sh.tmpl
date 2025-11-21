@@ -86,26 +86,20 @@ if ! system_profiler SPHardwareDataType | grep -q "Model Identifier.*VMware\|Par
     # Restart automatically if the computer freezes
     sudo systemsetup -setrestartfreeze on 2>/dev/null || true
 
-    # Sleep the display after 15 minutes
-    sudo pmset -a displaysleep 15 2>/dev/null || true
+    # Display sleep
+    sudo pmset -c displaysleep 20 2>/dev/null || true  # 20 min when charging
+    sudo pmset -b displaysleep 5 2>/dev/null || true   # 5 min on battery
 
-    # Disable machine sleep while charging
-    sudo pmset -c sleep 0 2>/dev/null || true
+    # Computer sleep
+    sudo pmset -c sleep 0 2>/dev/null || true          # Never sleep when charging
+    sudo pmset -b sleep 15 2>/dev/null || true         # 15 min on battery
 
-    # Set machine sleep to 5 minutes on battery
-    sudo pmset -b sleep 5 2>/dev/null || true
-
-    # Set standby delay to 24 hours (default is 1 hour)
+    # Standby delay: 24 hours (default is 1 hour)
     sudo pmset -a standbydelay 86400 2>/dev/null || true
 
-    # Never go into computer sleep mode
-    sudo systemsetup -setcomputersleep Off > /dev/null 2>&1 || true
-
-    # Hibernation mode
-    # 0: Disable hibernation (speeds up entering sleep mode)
-    # 3: Copy RAM to disk so the system state can still be restored in case of a
-    #    power failure.
-    sudo pmset -a hibernatemode 0 2>/dev/null || true
+    # Hibernation mode: Save RAM to disk for safety
+    # 3: Copy RAM to disk so system state can be restored if power lost
+    sudo pmset -a hibernatemode 3 2>/dev/null || true
 
     echo "✅ Power management configured"
 else
