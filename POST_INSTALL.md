@@ -209,6 +209,23 @@ After running `bootstrap.sh`, complete these manual steps:
    - Configure to exclude removable media if available in settings
 4. Grant necessary permissions when prompted
 
+### Supercharge
+1. Download from your Gumroad library: https://gumroad.com/library
+2. Extract and move to Applications
+3. Grant permissions when prompted:
+   - Accessibility access
+   - Screen Recording (for text capture features)
+
+### Shortcutie
+1. Download from your Gumroad library: https://gumroad.com/library
+2. Extract and move to Applications
+3. Open Shortcutie - extra actions will appear in the Shortcuts app
+
+### Default Browser
+1. Download from your Gumroad library: https://gumroad.com/library
+2. Extract and move to Applications
+3. Configure which browsers appear in the menu
+
 ### Discord, Slack, Signal
 Sign in to each application
 

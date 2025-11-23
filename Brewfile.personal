@@ -78,6 +78,21 @@ mas 'Magnet', id: 441258766
 mas 'RapidDMG', id: 6444896245
 mas 'NEEWER Control Center', id: 1592424571
 
+# Sindre Sorhus utilities (duplicated in work for policy flexibility)
+mas 'Dato', id: 1470584107
+mas 'Shareful', id: 1522267256
+mas 'Actions', id: 1586435171
+mas 'Speediness', id: 1596706466
+mas 'One Thing', id: 1604176982
+mas 'Shortery', id: 1594183810
+mas 'Hyperduck', id: 6444667067
+mas 'Camera Preview', id: 1632827132
+mas 'Online Check', id: 6504709660
+mas 'Short Run', id: 6745427035
+
+# Personal only
+mas 'Simple Color Palette', id: 6744484427
+
 ##
 # Productivity
 ##

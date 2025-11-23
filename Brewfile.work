@@ -78,6 +78,22 @@ cask 'microsoft-office'
 # cask 'evernote'
 
 ##
+# Mac App Store Apps
+##
+
+# Sindre Sorhus utilities (duplicated in personal for policy flexibility)
+mas 'Dato', id: 1470584107
+mas 'Shareful', id: 1522267256
+mas 'Actions', id: 1586435171
+mas 'Speediness', id: 1596706466
+mas 'One Thing', id: 1604176982
+mas 'Shortery', id: 1594183810
+mas 'Hyperduck', id: 6444667067
+mas 'Camera Preview', id: 1632827132
+mas 'Online Check', id: 6504709660
+mas 'Short Run', id: 6745427035
+
+##
 # Add your work-specific tools here
 ##
 

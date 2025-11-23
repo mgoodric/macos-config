@@ -122,6 +122,15 @@ defaults write com.apple.controlcenter "NSStatusItem VisibleCC WiFi" -bool true
 # Hide Spotlight from menu bar (macOS 13+)
 defaults write com.apple.Spotlight "NSStatusItem Visible Item-0" -bool false
 
+# Clock: Use analog style
+defaults write com.apple.menuextra.clock IsAnalog -bool true
+
+# Clock: Don't show date (0 = show, 2 = never)
+defaults write com.apple.menuextra.clock ShowDate -int 2
+
+# Clock: Don't show day of week
+defaults write com.apple.menuextra.clock ShowDayOfWeek -bool false
+
 ###############################################################################
 # Widgets                                                                     #
 ###############################################################################

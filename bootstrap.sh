@@ -61,6 +61,36 @@ if [[ -f "$CHEZMOI_SOURCE/Brewfile" ]]; then
     brew bundle --file="$CHEZMOI_SOURCE/Brewfile" || echo "⚠️  Some Homebrew packages failed to install, continuing..."
 fi
 
+# Install direct-download apps (not available via Homebrew or Mac App Store)
+install_zip_app() {
+    local url="$1"
+    local app_name="$2"
+
+    if [[ -d "/Applications/$app_name.app" ]]; then
+        echo "✅ $app_name already installed"
+        return 0
+    fi
+
+    echo "📥 Installing $app_name..."
+    local temp_dir=$(mktemp -d)
+    curl -L -o "$temp_dir/app.zip" "$url"
+    unzip -q "$temp_dir/app.zip" -d "$temp_dir"
+    cp -R "$temp_dir/$app_name.app" /Applications/
+    rm -rf "$temp_dir"
+    echo "✅ $app_name installed"
+}
+
+# Install direct-download apps based on computer type
+echo "📥 Installing direct-download apps..."
+
+if [[ "$COMPUTER_TYPE" == "work" ]]; then
+    install_zip_app "https://github.com/sindresorhus/app-buddy-meta/releases/latest/download/App.Buddy.zip" "App Buddy"
+    install_zip_app "https://github.com/sindresorhus/menu-bar-spacing-meta/releases/latest/download/Menu.Bar.Spacing.zip" "Menu Bar Spacing"
+elif [[ "$COMPUTER_TYPE" == "personal" ]]; then
+    install_zip_app "https://github.com/sindresorhus/app-buddy-meta/releases/latest/download/App.Buddy.zip" "App Buddy"
+    install_zip_app "https://github.com/sindresorhus/menu-bar-spacing-meta/releases/latest/download/Menu.Bar.Spacing.zip" "Menu Bar Spacing"
+fi
+
 # Run macOS defaults
 if [[ -f "$CHEZMOI_SOURCE/setup-macos-defaults.sh.tmpl" ]]; then
     echo "⚙️  Configuring macOS defaults..."
