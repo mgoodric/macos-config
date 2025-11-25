@@ -23,9 +23,22 @@ else
     echo "✅ Homebrew already installed"
 fi
 
+# Initialize Homebrew environment (ensure brew is in PATH)
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # Install chezmoi
 echo "📝 Installing chezmoi..."
 brew install chezmoi
+
+# Verify chezmoi is available
+if ! command -v chezmoi &> /dev/null; then
+    echo "❌ ERROR: chezmoi not found in PATH after installation"
+    exit 1
+fi
 
 # Initialize and apply dotfiles
 echo "🔗 Applying dotfiles from mgoodric/macos-config..."
@@ -33,6 +46,7 @@ chezmoi init --apply mgoodric/macos-config
 
 # Get the chezmoi source directory
 CHEZMOI_SOURCE=$(chezmoi source-path)
+echo "📁 Chezmoi source: $CHEZMOI_SOURCE"
 
 # Install Homebrew packages
 echo "📦 Installing Homebrew packages..."
@@ -45,6 +59,7 @@ fi
 
 # Get computer type from chezmoi data
 COMPUTER_TYPE=$(chezmoi data | grep -o '"computerType": "[^"]*"' | cut -d'"' -f4)
+echo "🖥️  Computer type detected: '$COMPUTER_TYPE'"
 
 # Install computer-type-specific packages
 if [[ "$COMPUTER_TYPE" == "work" ]] && [[ -f "$CHEZMOI_SOURCE/Brewfile.work" ]]; then
@@ -66,53 +81,64 @@ install_zip_app() {
     local url="$1"
     local app_name="$2"
 
+    echo "  → Checking $app_name..."
+
     if [[ -d "/Applications/$app_name.app" ]]; then
-        echo "✅ $app_name already installed"
+        echo "  ✅ $app_name already installed"
         return 0
     fi
 
-    echo "📥 Installing $app_name..."
+    echo "  📥 Downloading $app_name from: $url"
     local temp_dir=$(mktemp -d)
+    echo "  📁 Using temp directory: $temp_dir"
 
     if ! curl -fsSL -o "$temp_dir/app.zip" "$url"; then
-        echo "⚠️  Failed to download $app_name"
+        echo "  ⚠️  Failed to download $app_name"
         rm -rf "$temp_dir"
         return 1
     fi
+    echo "  ✓ Download complete"
 
     if ! unzip -q "$temp_dir/app.zip" -d "$temp_dir"; then
-        echo "⚠️  Failed to unzip $app_name"
+        echo "  ⚠️  Failed to unzip $app_name"
         rm -rf "$temp_dir"
         return 1
     fi
+    echo "  ✓ Extraction complete"
 
     if [[ ! -d "$temp_dir/$app_name.app" ]]; then
-        echo "⚠️  $app_name.app not found in archive"
+        echo "  ⚠️  $app_name.app not found in archive. Contents:"
         ls -la "$temp_dir"
         rm -rf "$temp_dir"
         return 1
     fi
 
     if ! cp -R "$temp_dir/$app_name.app" /Applications/; then
-        echo "⚠️  Failed to copy $app_name to /Applications"
+        echo "  ⚠️  Failed to copy $app_name to /Applications"
         rm -rf "$temp_dir"
         return 1
     fi
 
     rm -rf "$temp_dir"
-    echo "✅ $app_name installed"
+    echo "  ✅ $app_name installed successfully"
 }
 
 # Install direct-download apps based on computer type
 echo "📥 Installing direct-download apps..."
+echo "🖥️  Computer type for app selection: '$COMPUTER_TYPE'"
 
 # Profile-specific apps (add here if needed)
 if [[ "$COMPUTER_TYPE" == "work" ]]; then
+    echo "📦 Installing work-specific direct-download apps..."
     install_zip_app "https://github.com/sindresorhus/app-buddy-meta/releases/latest/download/App.Buddy.zip" "App Buddy"
     install_zip_app "https://github.com/sindresorhus/menu-bar-spacing-meta/releases/latest/download/Menu.Bar.Spacing.zip" "Menu Bar Spacing"
 elif [[ "$COMPUTER_TYPE" == "personal" ]]; then
+    echo "📦 Installing personal direct-download apps..."
     install_zip_app "https://github.com/sindresorhus/app-buddy-meta/releases/latest/download/App.Buddy.zip" "App Buddy"
     install_zip_app "https://github.com/sindresorhus/menu-bar-spacing-meta/releases/latest/download/Menu.Bar.Spacing.zip" "Menu Bar Spacing"
+else
+    echo "⚠️  Unknown computer type: '$COMPUTER_TYPE' - skipping direct-download apps"
+    echo "    Expected 'work' or 'personal'"
 fi
 
 # Run macOS defaults
