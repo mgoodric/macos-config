@@ -48,32 +48,54 @@ chezmoi init --apply mgoodric/macos-config
 CHEZMOI_SOURCE=$(chezmoi source-path)
 echo "📁 Chezmoi source: $CHEZMOI_SOURCE"
 
+# Detect if running in a VM
+IS_VM=false
+if system_profiler SPHardwareDataType | grep -q "Model Name.*Virtual Machine\|Model Identifier.*VMware\|Parallels\|VirtualBox"; then
+    IS_VM=true
+    echo "🖥️  Running in virtual machine - will skip Mac App Store apps"
+else
+    echo "🖥️  Running on physical hardware"
+fi
+
+# Set brew bundle flags based on VM detection
+BREW_BUNDLE_FLAGS=""
+if [[ "$IS_VM" == "true" ]]; then
+    BREW_BUNDLE_FLAGS="--no-mas"
+fi
+
 # Install Homebrew packages
 echo "📦 Installing Homebrew packages..."
+echo "⚠️  Note: You may be prompted for your password for some apps (Slack, Adobe Creative Cloud, etc.)"
+
+# Refresh sudo timestamp before installing packages (some casks require admin privileges)
+sudo -v
 
 # Install core packages (common to all machines)
 if [[ -f "$CHEZMOI_SOURCE/Brewfile.core" ]]; then
     echo "📦 Installing core packages..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.core" || echo "⚠️  Some core packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.core" $BREW_BUNDLE_FLAGS --no-lock || echo "⚠️  Some core packages failed to install, continuing..."
 fi
 
+# Refresh sudo again before type-specific packages
+sudo -v
+
 # Get computer type from chezmoi data
-COMPUTER_TYPE=$(chezmoi data | grep -o '"computerType": "[^"]*"' | cut -d'"' -f4)
+COMPUTER_TYPE=$(chezmoi data | grep -o '"computerType": "[^"]*"' | head -1 | cut -d'"' -f4 | tr -d '\n\r')
 echo "🖥️  Computer type detected: '$COMPUTER_TYPE'"
 
 # Install computer-type-specific packages
 if [[ "$COMPUTER_TYPE" == "work" ]] && [[ -f "$CHEZMOI_SOURCE/Brewfile.work" ]]; then
     echo "📦 Installing work-specific packages..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.work" || echo "⚠️  Some work packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.work" $BREW_BUNDLE_FLAGS --no-lock || echo "⚠️  Some work packages failed to install, continuing..."
 elif [[ "$COMPUTER_TYPE" == "personal" ]] && [[ -f "$CHEZMOI_SOURCE/Brewfile.personal" ]]; then
     echo "📦 Installing personal packages..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.personal" || echo "⚠️  Some personal packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.personal" $BREW_BUNDLE_FLAGS --no-lock || echo "⚠️  Some personal packages failed to install, continuing..."
 fi
 
 # Fallback to main Brewfile if it exists (for backwards compatibility)
 if [[ -f "$CHEZMOI_SOURCE/Brewfile" ]]; then
     echo "📦 Installing packages from main Brewfile..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile" || echo "⚠️  Some Homebrew packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile" $BREW_BUNDLE_FLAGS --no-lock || echo "⚠️  Some Homebrew packages failed to install, continuing..."
 fi
 
 # Install direct-download apps (not available via Homebrew or Mac App Store)

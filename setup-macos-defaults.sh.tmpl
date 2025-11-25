@@ -80,7 +80,7 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 ###############################################################################
 
 # Skip power management settings in VMs (not supported)
-if ! system_profiler SPHardwareDataType | grep -q "Model Identifier.*VMware\|Parallels\|VirtualBox"; then
+if ! system_profiler SPHardwareDataType | grep -q "Model Name.*Virtual Machine\|Model Identifier.*VMware\|Parallels\|VirtualBox"; then
     echo "Configuring power management settings..."
 
     # Restart automatically if the computer freezes
