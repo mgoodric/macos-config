@@ -73,9 +73,32 @@ install_zip_app() {
 
     echo "📥 Installing $app_name..."
     local temp_dir=$(mktemp -d)
-    curl -L -o "$temp_dir/app.zip" "$url"
-    unzip -q "$temp_dir/app.zip" -d "$temp_dir"
-    cp -R "$temp_dir/$app_name.app" /Applications/
+
+    if ! curl -fsSL -o "$temp_dir/app.zip" "$url"; then
+        echo "⚠️  Failed to download $app_name"
+        rm -rf "$temp_dir"
+        return 1
+    fi
+
+    if ! unzip -q "$temp_dir/app.zip" -d "$temp_dir"; then
+        echo "⚠️  Failed to unzip $app_name"
+        rm -rf "$temp_dir"
+        return 1
+    fi
+
+    if [[ ! -d "$temp_dir/$app_name.app" ]]; then
+        echo "⚠️  $app_name.app not found in archive"
+        ls -la "$temp_dir"
+        rm -rf "$temp_dir"
+        return 1
+    fi
+
+    if ! cp -R "$temp_dir/$app_name.app" /Applications/; then
+        echo "⚠️  Failed to copy $app_name to /Applications"
+        rm -rf "$temp_dir"
+        return 1
+    fi
+
     rm -rf "$temp_dir"
     echo "✅ $app_name installed"
 }
@@ -83,6 +106,7 @@ install_zip_app() {
 # Install direct-download apps based on computer type
 echo "📥 Installing direct-download apps..."
 
+# Profile-specific apps (add here if needed)
 if [[ "$COMPUTER_TYPE" == "work" ]]; then
     install_zip_app "https://github.com/sindresorhus/app-buddy-meta/releases/latest/download/App.Buddy.zip" "App Buddy"
     install_zip_app "https://github.com/sindresorhus/menu-bar-spacing-meta/releases/latest/download/Menu.Bar.Spacing.zip" "Menu Bar Spacing"
