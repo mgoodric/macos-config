@@ -25,15 +25,9 @@ fi
 # Install Oh My Zsh
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
     echo "Installing Oh My Zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    echo "✅ Oh My Zsh installed"
-
-    # Oh My Zsh overwrites .zshrc, so re-apply chezmoi to restore our custom config
-    if command -v chezmoi &> /dev/null; then
-        echo "Restoring custom .zshrc from chezmoi..."
-        chezmoi apply ~/.zshrc
-        echo "✅ Custom .zshrc restored"
-    fi
+    # KEEP_ZSHRC=yes prevents the installer from overwriting our custom .zshrc
+    KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    echo "✅ Oh My Zsh installed (custom .zshrc preserved)"
 else
     echo "⏭️  Oh My Zsh already installed"
 fi
