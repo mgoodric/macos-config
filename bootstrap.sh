@@ -53,14 +53,10 @@ IS_VM=false
 if system_profiler SPHardwareDataType | grep -q "Model Name.*Virtual Machine\|Model Identifier.*VMware\|Parallels\|VirtualBox"; then
     IS_VM=true
     echo "🖥️  Running in virtual machine - will skip Mac App Store apps"
+    # Skip mas (Mac App Store) installations in VMs by setting environment variable
+    export HOMEBREW_BUNDLE_MAS_SKIP=1
 else
     echo "🖥️  Running on physical hardware"
-fi
-
-# Set brew bundle flags based on VM detection
-BREW_BUNDLE_FLAGS=""
-if [[ "$IS_VM" == "true" ]]; then
-    BREW_BUNDLE_FLAGS="--no-mas"
 fi
 
 # Install Homebrew packages
@@ -73,7 +69,7 @@ sudo -v
 # Install core packages (common to all machines)
 if [[ -f "$CHEZMOI_SOURCE/Brewfile.core" ]]; then
     echo "📦 Installing core packages..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.core" $BREW_BUNDLE_FLAGS --no-lock || echo "⚠️  Some core packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.core" --no-lock || echo "⚠️  Some core packages failed to install, continuing..."
 fi
 
 # Refresh sudo again before type-specific packages
@@ -86,16 +82,16 @@ echo "🖥️  Computer type detected: '$COMPUTER_TYPE'"
 # Install computer-type-specific packages
 if [[ "$COMPUTER_TYPE" == "work" ]] && [[ -f "$CHEZMOI_SOURCE/Brewfile.work" ]]; then
     echo "📦 Installing work-specific packages..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.work" $BREW_BUNDLE_FLAGS --no-lock || echo "⚠️  Some work packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.work" --no-lock || echo "⚠️  Some work packages failed to install, continuing..."
 elif [[ "$COMPUTER_TYPE" == "personal" ]] && [[ -f "$CHEZMOI_SOURCE/Brewfile.personal" ]]; then
     echo "📦 Installing personal packages..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.personal" $BREW_BUNDLE_FLAGS --no-lock || echo "⚠️  Some personal packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.personal" --no-lock || echo "⚠️  Some personal packages failed to install, continuing..."
 fi
 
 # Fallback to main Brewfile if it exists (for backwards compatibility)
 if [[ -f "$CHEZMOI_SOURCE/Brewfile" ]]; then
     echo "📦 Installing packages from main Brewfile..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile" $BREW_BUNDLE_FLAGS --no-lock || echo "⚠️  Some Homebrew packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile" --no-lock || echo "⚠️  Some Homebrew packages failed to install, continuing..."
 fi
 
 # Install direct-download apps (not available via Homebrew or Mac App Store)
