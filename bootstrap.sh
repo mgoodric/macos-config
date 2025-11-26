@@ -69,7 +69,7 @@ sudo -v
 # Install core packages (common to all machines)
 if [[ -f "$CHEZMOI_SOURCE/Brewfile.core" ]]; then
     echo "📦 Installing core packages..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.core" --no-lock || echo "⚠️  Some core packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.core" || echo "⚠️  Some core packages failed to install, continuing..."
 fi
 
 # Refresh sudo again before type-specific packages
@@ -82,16 +82,16 @@ echo "🖥️  Computer type detected: '$COMPUTER_TYPE'"
 # Install computer-type-specific packages
 if [[ "$COMPUTER_TYPE" == "work" ]] && [[ -f "$CHEZMOI_SOURCE/Brewfile.work" ]]; then
     echo "📦 Installing work-specific packages..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.work" --no-lock || echo "⚠️  Some work packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.work" || echo "⚠️  Some work packages failed to install, continuing..."
 elif [[ "$COMPUTER_TYPE" == "personal" ]] && [[ -f "$CHEZMOI_SOURCE/Brewfile.personal" ]]; then
     echo "📦 Installing personal packages..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.personal" --no-lock || echo "⚠️  Some personal packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile.personal" || echo "⚠️  Some personal packages failed to install, continuing..."
 fi
 
 # Fallback to main Brewfile if it exists (for backwards compatibility)
 if [[ -f "$CHEZMOI_SOURCE/Brewfile" ]]; then
     echo "📦 Installing packages from main Brewfile..."
-    brew bundle --file="$CHEZMOI_SOURCE/Brewfile" --no-lock || echo "⚠️  Some Homebrew packages failed to install, continuing..."
+    brew bundle --file="$CHEZMOI_SOURCE/Brewfile" || echo "⚠️  Some Homebrew packages failed to install, continuing..."
 fi
 
 # Install direct-download apps (not available via Homebrew or Mac App Store)
