@@ -19,6 +19,7 @@ cask 'vivaldi'
 
 cask '1password'
 cask '1password-cli'
+cask 'little-snitch'
 
 ##
 # Chat & Communication
@@ -34,6 +35,8 @@ cask 'signal'
 
 cask 'adobe-creative-cloud'
 cask 'minstaller'
+cask 'prusaslicer'
+cask 'shapr3d'
 
 # Note: DaVinci Resolve Studio must be installed manually
 # See POST_INSTALL.md
@@ -64,6 +67,7 @@ cask 'wifiman'
 # Note: CalDigit Thunderbolt Station drivers must be installed manually if you have this hardware
 # Requires Rosetta 2 and kernel extension approval. See POST_INSTALL.md
 
+cask 'betterdisplay'
 cask 'cleanshot'
 cask 'clop'
 cask 'elgato-stream-deck'
