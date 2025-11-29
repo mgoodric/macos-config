@@ -94,6 +94,14 @@ if [[ -f "$CHEZMOI_SOURCE/Brewfile" ]]; then
     brew bundle --file="$CHEZMOI_SOURCE/Brewfile" || echo "⚠️  Some Homebrew packages failed to install, continuing..."
 fi
 
+# Install Node.js LTS via nvm
+if [[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ]]; then
+    echo "📦 Installing Node.js LTS via nvm..."
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"
+    nvm install --lts
+fi
+
 # Install direct-download apps (not available via Homebrew or Mac App Store)
 install_zip_app() {
     local url="$1"

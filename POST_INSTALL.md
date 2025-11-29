@@ -27,6 +27,8 @@ After running `bootstrap.sh`, complete these manual steps:
    echo $SSH_AUTH_SOCK
    # Should show: /Users/username/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock
    ```
+6. Check Integration with 1Password CLI
+7. Check Check for Developer Credentials on Disk
 
 ### iTerm2
 1. Open iTerm2
@@ -37,18 +39,20 @@ After running `bootstrap.sh`, complete these manual steps:
    - Click the Text tab
    - Under Font, click "Change Font"
    - Search for "MesloLGM Nerd Font" or "MesloLGM-NF"
-   - Select it and set size to 13
 4. Configure font rendering (still in Text tab):
    - ✅ Enable "Anti-aliased" (for smooth text)
    - ⬜ Disable "Use ligatures" (if you don't want ligatures)
    - ✅ Enable "Draw Powerline glyphs" (required for Oh My Posh icons)
-   - Set "Horizontal spacing" to 1
-   - Set "Vertical spacing" to 1
    - Close Preferences
 5. If you see duplicate "Default" profiles, delete one:
    - Preferences → Profiles
    - Select the duplicate profile
    - Click the `-` button at the bottom to delete it
+6. Make iTerm2 the Default Term
+
+### Obdidian
+1. Open Obsidian
+2. Open G$ Vault
 
 ### tmux
 1. Open tmux: `tmux`
@@ -56,20 +60,14 @@ After running `bootstrap.sh`, complete these manual steps:
 3. Wait for plugins to install
 4. Sessions will now auto-save and restore
 
-### Hazel
-1. Open Hazel
-2. Grant Full Disk Access when prompted:
-   - System Settings → Privacy & Security → Full Disk Access
-   - Enable Hazel
-3. Import rules: File → Import Rules
-   - Select rules from: `$(chezmoi source-path)/hazel-rules/`
-
 ### Alfred
 1. Open Alfred
 2. Grant necessary permissions (Accessibility, Full Disk Access)
 3. Set up Powerpack license (if you have one)
 4. Configure hotkey (recommend: Cmd+Space)
-5. Sync settings (if you use Dropbox/iCloud sync)
+   - Unmap Spotlight Keyboard Shortcut first
+5.
+6. Sync settings (if you use Dropbox/iCloud sync)
 
 ### Vivaldi
 1. Open Vivaldi (settings are pre-configured via chezmoi)
@@ -78,6 +76,8 @@ After running `bootstrap.sh`, complete these manual steps:
    - Sign in with your Vivaldi account
    - Choose what to sync (bookmarks, passwords, etc.)
 3. Import bookmarks if needed (File → Import Bookmarks and Settings)
+4. Cleanup Right Side Toolbar Shortcuts
+5. Change Default Search Engine
 
 ### JetBrains Toolbox
 1. Open JetBrains Toolbox
@@ -109,6 +109,166 @@ After running `bootstrap.sh`, complete these manual steps:
    - Configure shared folders
    - Adjust performance settings
 
+### DaVinci Resolve Studio
+1. Download DaVinci Resolve Studio:
+   - Visit: https://www.blackmagicdesign.com/support/
+   - Click "Download" button
+   - Fill out registration form (if required)
+   - Download the Studio version (not the free version)
+2. Open the downloaded DMG file
+3. Run the DaVinci Resolve installer
+4. Follow installation wizard:
+   - Accept license agreement
+   - Choose installation components (Resolve, Fusion, etc.)
+   - Complete installation
+5. Launch DaVinci Resolve Studio
+6. Activate your license:
+   - Enter license key, or
+   - Connect DaVinci Resolve Speed Editor/Advanced Panel (hardware dongle)
+
+### mInstaller
+1. Open
+2. Login
+3. Install all Plugins
+
+### Ice
+1. Open Ice
+2. Grant Permissions
+3. Quit & Reopen
+4. Set Settings
+   - Launch at Login
+   -
+
+### CleanShot X
+1. Open CleanShot X (preferences are pre-configured via chezmoi)
+2. Settings are already configured:
+   - Launch at login enabled
+   - Hide desktop icons in captures
+   - Auto-updates enabled
+3. Activate license if needed
+4. Settings are already configured:
+   - Save location: ~/Downloads/Screenshots
+   - Format: PNG
+   - Copy to clipboard AND save to disk
+   - Hide desktop icons in captures
+   - Mouse cursor excluded
+   - Auto-updates enabled
+5. Replace macOS default screenshot shortcuts:
+   - Open CleanShot X → Preferences → Keyboard Shortcuts
+   - Click "Replace system shortcuts" button
+   - This will capture Cmd+Shift+3, Cmd+Shift+4, and Cmd+Shift+5
+6. Grant Screen Recording permission when prompted:
+   - System Settings → Privacy & Security → Screen Recording
+   - Enable CleanShot X
+
+### Menu Bar Spacing
+1. Open
+2. Set to 10
+
+### Keka
+1. Enable the Finder Extension
+2. Set Keka as the default uncompressor
+3. Automatically check for updates
+4. File Access -> Enable home folder access, Enable External volume access
+
+### Clop
+1. Open Clop (preferences are pre-configured via chezmoi)
+2. Settings are already configured:
+   - Launch at login enabled
+   - CLI tool installed
+   - Auto-updates enabled
+   - Watches ~/Downloads for images
+   - Format conversions: HEIC/AVIF/WebP → JPEG, TIFF → PNG
+3. Grant necessary permissions when prompted
+
+### Little Snitch
+1. Open Little Snitch
+2. Walk through installation/setup
+3. Put in License Key
+
+### Dato
+1. Open Dato
+2. Walk through setup
+3. Launch at Startup
+
+### Supercharge
+1. Download from your Gumroad library: https://gumroad.com/library
+2. Extract and move to Applications
+3. Grant permissions when prompted:
+   - Accessibility access
+   - Screen Recording (for text capture features)
+
+### Shortcutie
+1. Download from your Gumroad library: https://gumroad.com/library
+2. Extract and move to Applications
+3. Open Shortcutie - extra actions will appear in the Shortcuts app
+
+### Default Browser
+1. Download from your Gumroad library: https://gumroad.com/library
+2. Extract and move to Applications
+3. Configure which browsers appear in the menu
+
+### Quicken
+1. Open Quicken
+2. Login
+3. Open Quicken File
+
+### Claude
+1. Open Claude
+2. Login
+3. Open iTerm
+4. Launch claude via the `claude` command
+5. Authenticate
+6. Settings -> Run at Startup
+
+### BetterDisplay
+1. Open BetterDisplay
+2. Grant Permissions
+3. Activate Pro License
+
+### Discord
+1. Open Discord
+2. Grant Permissions
+3. Login
+
+### Google Drive
+1. Open Google Drive
+2. Autnenticate
+3. Make Scanned Folder Available Offline (for Hazel)
+
+### App Store Apps
+1. Open Mac App Store
+2. Ensure all expected items were downloaded
+3. Open each one individually
+   - Hyperduck
+      - Launch at Login
+      - History
+   - Camera Preview
+      - Show in Menu Bar
+      - Launch at Login
+   - Shortery
+      - Grant Permissions
+      - Setup Hourly Schedule to Run the Shortcut 'Internet Speed in Menu Bar'
+   - One Thing
+      - Launch at Login
+   - Speediness
+   - Shareful
+      - Follow Instructions
+   -  Magnet
+      - Grant Permissions
+   - Amphetamine
+
+### Fileside
+1. Download from: https://www.fileside.app/download/
+2. Move to Applications folder
+3. Open Fileside
+4. Grant necessary permissions when prompted
+5. Validate License
+
+### Shapr3d
+1. Open
+2. Login
+
 ### Private Internet Access
 **Note:** Private Internet Access must be installed manually (not via Homebrew) due to macOS 26.0 security restrictions.
 
@@ -119,6 +279,20 @@ After running `bootstrap.sh`, complete these manual steps:
 3. Run the installer
 4. Sign in with your PIA account credentials
 5. Configure VPN settings as needed
+
+### Hazel
+1. Open Hazel
+2. Grant Full Disk Access when prompted:
+   - System Settings → Privacy & Security → Full Disk Access
+   - Enable Hazel
+3. Import rules: File → Import Rules
+   - Select rules from: `$(chezmoi source-path)/hazel-rules/`
+
+
+
+
+
+
 
 ### CalDigit Thunderbolt Station (Optional)
 **Note:** Only install if you own a CalDigit Thunderbolt Station dock. This requires Rosetta 2 and kernel extension approval.
@@ -146,85 +320,11 @@ After running `bootstrap.sh`, complete these manual steps:
 
 5. **Restart your Mac** to complete installation
 
-### DaVinci Resolve Studio
-1. Download DaVinci Resolve Studio:
-   - Visit: https://www.blackmagicdesign.com/products/davinciresolve
-   - Click "Download" button
-   - Fill out registration form (if required)
-   - Download the Studio version (not the free version)
-2. Open the downloaded DMG file
-3. Run the DaVinci Resolve installer
-4. Follow installation wizard:
-   - Accept license agreement
-   - Choose installation components (Resolve, Fusion, etc.)
-   - Complete installation
-5. Launch DaVinci Resolve Studio
-6. Activate your license:
-   - Enter license key, or
-   - Connect DaVinci Resolve Speed Editor/Advanced Panel (hardware dongle)
-7. Configure preferences:
-   - Set scratch disks location
-   - Configure GPU settings
-   - Set up project libraries
 
-### CleanShot X
-1. Open CleanShot X (preferences are pre-configured via chezmoi)
-2. Settings are already configured:
-   - Save location: ~/Downloads/Screenshots
-   - Format: PNG
-   - Copy to clipboard AND save to disk
-   - Hide desktop icons in captures
-   - Mouse cursor excluded
-   - Auto-updates enabled
-3. Replace macOS default screenshot shortcuts:
-   - Open CleanShot X → Preferences → Keyboard Shortcuts
-   - Click "Replace system shortcuts" button
-   - This will capture Cmd+Shift+3, Cmd+Shift+4, and Cmd+Shift+5
-4. Grant Screen Recording permission when prompted:
-   - System Settings → Privacy & Security → Screen Recording
-   - Enable CleanShot X
 
-### Keka
-1. Open Keka → Preferences → General
-2. Click "Install command line tool"
 
-### CleanShot X
-1. Open CleanShot X (preferences are pre-configured via chezmoi)
-2. Settings are already configured:
-   - Launch at login enabled
-   - Hide desktop icons in captures
-   - Auto-updates enabled
-3. Activate license if needed
 
-### Clop
-1. Open Clop (preferences are pre-configured via chezmoi)
-2. Settings are already configured:
-   - Launch at login enabled
-   - CLI tool installed
-   - Auto-updates enabled
-   - Watches ~/Downloads for images
-   - Format conversions: HEIC/AVIF/WebP → JPEG, TIFF → PNG
-3. Manual configuration needed:
-   - Enable clipboard optimization for images (Preferences → Clipboard)
-   - Configure to exclude removable media if available in settings
-4. Grant necessary permissions when prompted
 
-### Supercharge
-1. Download from your Gumroad library: https://gumroad.com/library
-2. Extract and move to Applications
-3. Grant permissions when prompted:
-   - Accessibility access
-   - Screen Recording (for text capture features)
-
-### Shortcutie
-1. Download from your Gumroad library: https://gumroad.com/library
-2. Extract and move to Applications
-3. Open Shortcutie - extra actions will appear in the Shortcuts app
-
-### Default Browser
-1. Download from your Gumroad library: https://gumroad.com/library
-2. Extract and move to Applications
-3. Configure which browsers appear in the menu
 
 ### Discord, Slack, Signal
 Sign in to each application
@@ -286,19 +386,13 @@ Start Colima:
 colima start
 ```
 
-## 5. Privacy & Security Grants
-
-Grant Full Disk Access to:
-- iTerm2
-- Claude Code
-- Hazel
-- Alfred (if needed)
-
-Grant Accessibility access to:
-- Alfred
-- Any window management tools
-
-Location: System Settings → Privacy & Security
+## 5. Menu Bar Customization
+- Spotlight -> Disable
+- Bluetooth -> Enable
+- Sound -> Always Show
+- Time Machine -> Enable
+- Creative Cloud -> Disable
+- mInstaller -> Disable
 
 ## 6. Dock Configuration
 

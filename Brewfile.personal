@@ -48,6 +48,9 @@ cask 'shapr3d'
 cask 'jetbrains-toolbox'
 cask 'claude-code'
 
+# Node version manager
+brew 'nvm'
+
 # Note: Parallels must be installed manually due to macOS security restrictions
 # Download from: https://www.parallels.com/products/desktop/download/
 
@@ -73,6 +76,7 @@ cask 'clop'
 cask 'elgato-stream-deck'
 cask 'google-drive'
 cask 'hazel'
+cask 'jordanbaird-ice'
 
 ##
 # Mac App Store Apps
