@@ -326,6 +326,11 @@ After running `bootstrap.sh`, complete these manual steps:
 
 
 
+### Fileside
+1. Download from: https://www.fileside.app/download/
+2. Extract and move to Applications
+3. Open Fileside and grant necessary permissions
+
 ### Discord, Slack, Signal
 Sign in to each application
 
@@ -347,21 +352,6 @@ Sign in to each application
 3. Save recovery key securely in 1Password
 
 ## 4. Developer Setup
-
-### SSH Keys
-Generate SSH key (if you don't use 1Password SSH agent):
-```bash
-ssh-keygen -t ed25519 -C "your_email@example.com"
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-```
-
-Add to GitHub/GitLab:
-```bash
-# Copy public key
-cat ~/.ssh/id_ed25519.pub | pbcopy
-# Then add to GitHub: Settings → SSH and GPG keys → New SSH key
-```
 
 ### Atuin
 Set up sync (optional):
