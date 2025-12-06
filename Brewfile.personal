@@ -36,7 +36,6 @@ cask 'signal'
 cask 'adobe-creative-cloud'
 cask 'minstaller'
 cask 'prusaslicer'
-cask 'shapr3d'
 
 # Note: DaVinci Resolve Studio must be installed manually
 # See POST_INSTALL.md
@@ -71,9 +70,14 @@ cask 'wifiman'
 # Requires Rosetta 2 and kernel extension approval. See POST_INSTALL.md
 
 cask 'betterdisplay'
+cask 'bettertouchtool'
 cask 'cleanshot'
 cask 'clop'
 cask 'elgato-stream-deck'
+
+# Note: NeewerLite must be installed manually from DMG
+# Download from: https://github.com/keefo/NeewerLite/releases
+# See POST_INSTALL.md
 cask 'google-drive'
 cask 'hazel'
 cask 'jordanbaird-ice'
@@ -84,7 +88,6 @@ cask 'jordanbaird-ice'
 
 mas 'Magnet', id: 441258766
 mas 'RapidDMG', id: 6444896245
-mas 'NEEWER Control Center', id: 1592424571
 
 # Sindre Sorhus utilities (duplicated in work for policy flexibility)
 mas 'Dato', id: 1470584107
@@ -99,6 +102,7 @@ mas 'Online Check', id: 6504709660
 mas 'Short Run', id: 6745427035
 
 # Personal only
+mas 'Parcel - Delivery Tracking', id: 375589283
 mas 'Simple Color Palette', id: 6744484427
 
 ##

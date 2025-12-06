@@ -43,12 +43,13 @@ After running `bootstrap.sh`, complete these manual steps:
    - ✅ Enable "Anti-aliased" (for smooth text)
    - ⬜ Disable "Use ligatures" (if you don't want ligatures)
    - ✅ Enable "Draw Powerline glyphs" (required for Oh My Posh icons)
-   - Close Preferences
-5. If you see duplicate "Default" profiles, delete one:
+5. Enable mouse reporting for tmux (in Profiles → Terminal):
+   - ✅ Enable "Enable mouse reporting" (required for tmux mouse support)
+6. If you see duplicate "Default" profiles, delete one:
    - Preferences → Profiles
    - Select the duplicate profile
    - Click the `-` button at the bottom to delete it
-6. Make iTerm2 the Default Term
+7. Make iTerm2 the Default Term
 
 ### Obdidian
 1. Open Obsidian
@@ -225,6 +226,29 @@ After running `bootstrap.sh`, complete these manual steps:
 1. Open BetterDisplay
 2. Grant Permissions
 3. Activate Pro License
+
+### BetterTouchTool
+1. Open BetterTouchTool
+2. Grant Accessibility permissions when prompted:
+   - System Settings → Privacy & Security → Accessibility
+   - Enable BetterTouchTool
+3. Activate license
+4. Configure gestures and shortcuts as needed
+5. Enable "Launch BetterTouchTool on startup" in preferences
+
+### NeewerLite
+**Note:** NeewerLite must be installed manually from DMG (open-source Neewer light control app).
+
+1. Download NeewerLite:
+   - Visit: https://github.com/keefo/NeewerLite/releases
+   - Download the latest DMG file (e.g., `NeewerLite.dmg`)
+2. Open the downloaded DMG file
+3. Drag NeewerLite to Applications folder
+4. Open NeewerLite
+5. Grant Bluetooth permissions when prompted:
+   - System Settings → Privacy & Security → Bluetooth
+   - Enable NeewerLite
+6. Connect to your Neewer lights via Bluetooth
 
 ### Discord
 1. Open Discord
@@ -441,6 +465,8 @@ chezmoi --version
 2. Open each application to complete first-run setup
 3. Review System Settings for any additional preferences
 4. Set up Time Machine backup (System Settings → General → Time Machine)
+5. Remove Desktop Widgets
+6. Change Wallpaper
 
 ## Notes
 

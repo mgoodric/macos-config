@@ -57,6 +57,7 @@ brew 'nvm'
 
 # Display management
 cask 'betterdisplay'
+cask 'bettertouchtool'
 
 # Screen capture tool
 cask 'cleanshot'
@@ -66,6 +67,10 @@ cask 'clop'
 
 # Stream Deck control
 cask 'elgato-stream-deck'
+
+# Note: NeewerLite must be installed manually from DMG
+# Download from: https://github.com/keefo/NeewerLite/releases
+# See POST_INSTALL.md
 
 # File automation
 cask 'hazel'

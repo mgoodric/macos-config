@@ -200,6 +200,7 @@ if command -v dockutil &> /dev/null; then
         [[ -d "/Applications/Vivaldi.app" ]] && dockutil --add "/Applications/Vivaldi.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/iTerm.app" ]] && dockutil --add "/Applications/iTerm.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/Obsidian.app" ]] && dockutil --add "/Applications/Obsidian.app" --no-restart 2>/dev/null || true
+        [[ -d "/System/Applications/Messages.app" ]] && dockutil --add "/System/Applications/Messages.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/Slack.app" ]] && dockutil --add "/Applications/Slack.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/Microsoft Teams.app" ]] && dockutil --add "/Applications/Microsoft Teams.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/ChatGPT.app" ]] && dockutil --add "/Applications/ChatGPT.app" --no-restart 2>/dev/null || true
@@ -211,6 +212,7 @@ if command -v dockutil &> /dev/null; then
         [[ -d "/Applications/Vivaldi.app" ]] && dockutil --add "/Applications/Vivaldi.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/iTerm.app" ]] && dockutil --add "/Applications/iTerm.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/Obsidian.app" ]] && dockutil --add "/Applications/Obsidian.app" --no-restart 2>/dev/null || true
+        [[ -d "/System/Applications/Messages.app" ]] && dockutil --add "/System/Applications/Messages.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/Slack.app" ]] && dockutil --add "/Applications/Slack.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/Discord.app" ]] && dockutil --add "/Applications/Discord.app" --no-restart 2>/dev/null || true
         [[ -d "/Applications/Signal.app" ]] && dockutil --add "/Applications/Signal.app" --no-restart 2>/dev/null || true
