@@ -74,9 +74,14 @@ cask 'bettertouchtool'
 cask 'cleanshot'
 cask 'clop'
 cask 'elgato-stream-deck'
+cask 'obs'
 
 # Note: NeewerLite must be installed manually from DMG
 # Download from: https://github.com/keefo/NeewerLite/releases
+# See POST_INSTALL.md
+
+# Note: RODECaster App must be installed manually
+# Download from: https://rode.com/en-us/apps/rodecaster-app
 # See POST_INSTALL.md
 cask 'google-drive'
 cask 'hazel'

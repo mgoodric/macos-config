@@ -236,6 +236,25 @@ After running `bootstrap.sh`, complete these manual steps:
 4. Configure gestures and shortcuts as needed
 5. Enable "Launch BetterTouchTool on startup" in preferences
 
+### OBS
+1. Open OBS
+2. Grant permissions when prompted:
+   - System Settings → Privacy & Security → Screen Recording → Enable OBS
+   - System Settings → Privacy & Security → Microphone → Enable OBS
+   - System Settings → Privacy & Security → Camera → Enable OBS (if using webcam)
+3. Run the Auto-Configuration Wizard for optimal settings
+4. Configure scenes and sources as needed
+
+### RODECaster App
+1. Download the RODECaster App:
+   - Visit: https://rode.com/en-us/apps/rodecaster-app
+   - Or direct download: https://update.rode.com/rc-app/RODECaster_App_MACOS.zip
+2. Extract the ZIP file
+3. Move the app to Applications folder
+4. Open RODECaster App
+5. Grant any required permissions when prompted
+6. Use to configure RØDECaster or Streamer X devices and update firmware
+
 ### NeewerLite
 **Note:** NeewerLite must be installed manually from DMG (open-source Neewer light control app).
 
@@ -317,6 +336,17 @@ After running `bootstrap.sh`, complete these manual steps:
 
 
 
+
+### Ivanky Ethernet Driver (Personal Only)
+**Note:** Only install if you have an Ivanky docking station with Ethernet.
+
+1. Download the macOS Ethernet driver:
+   - Visit: https://ivanky.com/blogs/news/ivanky-ethernet-driver-download-guide
+   - Download the macOS driver package
+2. Open the downloaded installer
+3. Follow the installation wizard
+4. Grant any required permissions when prompted
+5. Restart your Mac if required
 
 ### CalDigit Thunderbolt Station (Optional)
 **Note:** Only install if you own a CalDigit Thunderbolt Station dock. This requires Rosetta 2 and kernel extension approval.
