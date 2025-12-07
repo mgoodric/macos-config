@@ -66,6 +66,7 @@ cask 'cleanshot'
 cask 'clop'
 
 # Stream Deck control
+cask 'distroav'
 cask 'elgato-stream-deck'
 cask 'obs'
 

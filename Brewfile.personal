@@ -73,6 +73,7 @@ cask 'betterdisplay'
 cask 'bettertouchtool'
 cask 'cleanshot'
 cask 'clop'
+cask 'distroav'
 cask 'elgato-stream-deck'
 cask 'obs'
 
