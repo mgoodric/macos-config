@@ -5,7 +5,7 @@
 ##
 
 cask 'claude'
-brew 'ollama'
+cask 'lm-studio'
 
 ##
 # Browsers
@@ -46,6 +46,7 @@ cask 'prusaslicer'
 
 cask 'jetbrains-toolbox'
 cask 'claude-code'
+cask 'antigravity'
 
 # Node version manager
 brew 'nvm'
